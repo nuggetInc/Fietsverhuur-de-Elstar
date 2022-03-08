@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-session_start();
-
 require_once("classes/Database.php");
 require_once("classes/Employee.php");
+
+session_start();
 
 if (empty($_REQUEST["name"]))
 {
