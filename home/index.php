@@ -17,7 +17,7 @@ if (!isset($_SESSION["user"]))
 <html>
 
 <head>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="home.css">
     <title>Home</title>
 </head>
 
