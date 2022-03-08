@@ -5,9 +5,9 @@ declare(strict_types=1);
 class Employee
 {
     private string $name;
-    private Permission $permission;
+    private string $permission;
 
-    public function __construct(string $name, Permission $permission)
+    public function __construct(string $name, string $permission)
     {
         $this->name = $name;
         $this->permission = $permission;
@@ -18,14 +18,8 @@ class Employee
         return $this->name;
     }
 
-    public function getPermission(): Permission
+    public function getPermission(): string
     {
         return $this->permission;
     }
-}
-
-enum Permission: string
-{
-    case user = "user";
-    case admin = "admin";
 }

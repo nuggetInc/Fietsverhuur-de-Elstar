@@ -31,7 +31,7 @@ class Database
         if ($row = $sth->fetch())
         {
             $name = $row["name"];
-            $permission = Permission::from($row["permission"]);
+            $permission = $row["permission"];
             return new Employee($name, $permission);
         }
 
@@ -47,11 +47,11 @@ class Database
         return $sth->fetchColumn(0);
     }
 
-    public static function registerEmployee(string $name, string $password, Permission $permission): Employee
+    public static function registerEmployee(string $name, string $password, string $permission): Employee
     {
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
-        $params = array(":name" => $name, ":hash" => $hash, ":permission" => $permission->value);
+        $params = array(":name" => $name, ":hash" => $hash, ":permission" => $permission);
         $sth = self::getPDO()->prepare("INSERT INTO `employee` (`name`, `hash`, `permission`) VALUES (:name, :hash, :permission);");
         $sth->execute($params);
 
