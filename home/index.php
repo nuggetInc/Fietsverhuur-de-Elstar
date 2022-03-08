@@ -1,28 +1,42 @@
-<?php 
-declare(strict_types=1);
-?>
+<?php
 
+declare(strict_types=1);
+
+require_once("../classes/Employee.php");
+
+session_start();
+
+if (!isset($_SESSION["user"]))
+{
+    header("Location: ../");
+    exit;
+}
+
+?>
 <!DOCTYPE html>
 <html>
+
 <head>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="home.css">
     <title>Home</title>
 </head>
+
 <body>
+    <p><a href="logout.php">Logout</a></p>
     <table>
         <tr>
-            <th>Maandag</th>   
-            <th>Dinsdag</th>   
-            <th>Woensdag</th>   
-            <th>Donderdag</th>   
-            <th>Vrijdag</th>   
-            <th>Zaterdag</th>  
-            <th>Zondag</th>   
+            <th>Maandag</th>
+            <th>Dinsdag</th>
+            <th>Woensdag</th>
+            <th>Donderdag</th>
+            <th>Vrijdag</th>
+            <th>Zaterdag</th>
+            <th>Zondag</th>
         </tr>
-            <?php
+        <?php
 
-            $getdate_wday = (getdate()["wday"] == 0) ? 7 : getdate()["wday"] - 1;
-            $date = date("d-m-Y", strtotime("-" . $getdate_wday .  " days"));
+        $getdate_wday = (getdate()["wday"] == 0) ? 7 : getdate()["wday"] - 1;
+        $date = date("d-m-Y", strtotime("-" . $getdate_wday .  " days"));
 
             for($j = 0; $j < 20; $j++) 
             {
@@ -41,10 +55,8 @@ declare(strict_types=1);
                 }
                 echo "</tr>";
             }
-            
-            ?>
+        ?>
     </table>
 </body>
+
 </html>
-
-
