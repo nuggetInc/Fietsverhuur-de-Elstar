@@ -24,17 +24,18 @@ declare(strict_types=1);
             $getdate_wday = (getdate()["wday"] == 0) ? 7 : getdate()["wday"] - 1;
             $date = date("d-m-Y", strtotime("-" . $getdate_wday .  " days"));
 
-            for($j = 0; $j < 4; $j++) 
+            for($j = 0; $j < 20; $j++) 
             {
                 echo "<tr>";
                 for($i = 0; $i < 7; $i++) 
                 {
-                    $color = ($date == date("d-m-Y")) ? "green" : "gray";
+                    $color = ($date == date("d-m-Y")) ? "green" : ((getdate(strtotime($date))["wday"] == 6 ||getdate(strtotime($date))["wday"]== 0) ? "gray" : "lightgray");
+                    echo "
+                    <td style='background-color: {$color}'>
+                        <p class='table-text'>{$date}</p>
+                        <p class='table-text'>25/100</p>
 
-
-                    echo "<td style='background-color: {$color}'>{$date}</td>";
-
-
+                    </td>";
                     $date = date("d-m-Y", strtotime($date .  "+1 days"));
 
                 }
