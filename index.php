@@ -29,7 +29,7 @@ $database = new Database();
     }
     else
     {
-        require("login.php");
+        require("pages/login.php");
     }
 
     ?>
