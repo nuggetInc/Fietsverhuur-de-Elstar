@@ -62,7 +62,7 @@ if (isset($_POST["login"]))
         </label>
 
         <label><span class="label">Password<span id="login-password-error" class="error"><?= $_SESSION["login-password-error"] ?? "" ?></span></span>
-            <input id="login-password" class="<?= isset($_SESSION["login-password-error"]) ? "error" : "" ?>" onkeyup="validatePassword()" type="text" name="name" placeholder="Password" />
+            <input id="login-password" class="<?= isset($_SESSION["login-password-error"]) ? "error" : "" ?>" onkeyup="validatePassword()" type="password" name="password" placeholder="Password" />
         </label>
 
         <input class="submit" type="submit" name="login" value="Login" />
