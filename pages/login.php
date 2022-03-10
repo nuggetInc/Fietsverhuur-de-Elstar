@@ -38,7 +38,7 @@ if (isset($_POST["login"]))
     }
 
     // Empty strings means that there is an error, but no field specific message
-    $_SESSION["login-error"] = "Username or password is incorrect :(";
+    $_SESSION["login-error"] = "Username or password is incorrect";
     $_SESSION["login-name-error"] =  "";
     $_SESSION["login-password-error"] = "";
 
@@ -50,24 +50,34 @@ if (isset($_POST["login"]))
 }
 
 ?>
-<div class="container">
-    <form id="login" method="POST" onsubmit="return validateLoginForm()">
-        <!-- Only create the element for storing the error if there is one -->
-        <?php if (isset($_SESSION["login-error"])) : ?>
-            <p id="login-error"><?= $_SESSION["login-error"] ?></p>
-        <?php endif ?>
+<form id="login" method="POST" onsubmit="return validateLoginForm()">
+    <!-- Only create the element for storing the error if there is one -->
+    <?php if (isset($_SESSION["login-error"])) : ?>
+        <p id="login-error"><?= $_SESSION["login-error"] ?></p>
+    <?php endif ?>
 
-        <label><span class="label">Username<span id="login-name-error" class="error"><?= $_SESSION["login-name-error"] ?? "" ?></span></span>
-            <input id="login-name" class="<?= isset($_SESSION["login-name-error"]) ? "error" : "" ?>" oninput="validateUsername()" type="text" name="name" value="<?= $_SESSION["login-name"] ?? "" ?>" placeholder="Username" autofocus onfocus="this.select()" />
-        </label>
+    <label>
+        <span class="label">
+            <h3>Username</h3>
+            <span id="login-name-error" class="error">
+                <?= $_SESSION["login-name-error"] ?? "" ?>
+            </span>
+        </span>
+        <input id="login-name" class="<?= isset($_SESSION["login-name-error"]) ? "error" : "" ?>" oninput="validateUsername()" type="text" name="name" value="<?= $_SESSION["login-name"] ?? "" ?>" placeholder="Username" autofocus onfocus="this.select()" />
+    </label>
 
-        <label><span class="label">Password<span id="login-password-error" class="error"><?= $_SESSION["login-password-error"] ?? "" ?></span></span>
-            <input id="login-password" class="<?= isset($_SESSION["login-password-error"]) ? "error" : "" ?>" oninput="validatePassword()" type="password" name="password" placeholder="Password" />
-        </label>
+    <label>
+        <span class="label">
+            <h3>Password</h3>
+            <span id="login-password-error" class="error">
+                <?= $_SESSION["login-password-error"] ?? "" ?>
+            </span>
+        </span>
+        <input id="login-password" class="<?= isset($_SESSION["login-password-error"]) ? "error" : "" ?>" oninput="validatePassword()" type="password" name="password" placeholder="Password" />
+    </label>
 
-        <input class="submit" type="submit" name="login" value="Login" />
-    </form>
-</div>
+    <input class="submit" type="submit" name="login" value="Login" />
+</form>
 <script type="text/javascript">
     /** @return {boolean} */
     function validateLoginForm() {

@@ -6,7 +6,7 @@
 
     display: flex;
     flex-direction: column;
-    gap: .5rem;
+    gap: 1rem;
     align-items: stretch;
 }
 
@@ -21,13 +21,27 @@
 }
 
 #login input {
-    border-width: 2px;
+    padding: 1rem;
+
+    border-radius: 1.5rem;
+    border-width: 0;
+
+    background-color: var(--input-color);
+}
+
+#login input[type="submit"] {
+    background-color: var(--highlight-color);
 }
 
 #login .label {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
+}
+
+#login .label > h3 {
+    margin: 0;
 }
 
 #login input.error {
@@ -38,6 +52,7 @@
     margin: 0;
     padding: 0;
 
+    text-align: center;
     color: var(--error-color);
 }
 

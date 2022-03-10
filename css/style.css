@@ -1,6 +1,7 @@
 :root {
-    --background-color: #EEE;
-    --container-color: #FFF;
+    --background-color: #ffECD1;
+    --highlight-color: #E2B19D;
+    --input-color: #FFF;
     --error-color: #F00;
 }
 
@@ -18,7 +19,7 @@ body {
     background-color: var(--background-color);
 }
 
-.container {
+/* .container {
     margin: 0;
     padding: 1rem;
 
@@ -30,4 +31,4 @@ body {
     border-radius: 1rem;
 
     background-color: var(--container-color);
-}
+} */
