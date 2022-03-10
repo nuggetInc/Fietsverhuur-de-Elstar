@@ -58,7 +58,7 @@ if (isset($_POST["login"]))
         <?php endif ?>
 
         <label><span class="label">Username<span id="login-name-error" class="error"><?= $_SESSION["login-name-error"] ?? "" ?></span></span>
-            <input id="login-name" class="<?= isset($_SESSION["login-name-error"]) ? "error" : "" ?>" oninput="validateUsername()" type="text" name="name" value="<?= $_SESSION["login-name"] ?? "" ?>" placeholder="Username" autofocus />
+            <input id="login-name" class="<?= isset($_SESSION["login-name-error"]) ? "error" : "" ?>" oninput="validateUsername()" type="text" name="name" value="<?= $_SESSION["login-name"] ?? "" ?>" placeholder="Username" autofocus onfocus="this.select()" />
         </label>
 
         <label><span class="label">Password<span id="login-password-error" class="error"><?= $_SESSION["login-password-error"] ?? "" ?></span></span>
