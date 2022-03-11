@@ -22,9 +22,9 @@ if (isset($_POST["login"]))
         exit;
     }
 
-    if ($database->hasEmployeeName($_POST["name"]))
+    $user = $database->getEmployee($_POST["name"]);
+    if (isset($user))
     {
-        $user = $database->getEmployee($_POST["name"]);
         $hash = $database->getEmployeeHash($user);
 
         if (password_verify($_POST["password"], $hash))
