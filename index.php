@@ -25,7 +25,7 @@ $database = new Database();
 
     if (isset($_SESSION["user"]))
     {
-        require("pages/reserve.php");
+        require("pages/home.php");
     }
     else
     {

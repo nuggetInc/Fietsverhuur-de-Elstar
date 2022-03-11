@@ -19,6 +19,11 @@ body {
     background-color: var(--background-color);
 }
 
+.page-wrapper {
+    margin: auto;
+
+}
+
 /* .container {
     margin: 0;
     padding: 1rem;
