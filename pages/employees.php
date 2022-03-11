@@ -16,7 +16,7 @@ if (isset($_POST["employees"]))
 
     <label>
         <header>Search</header>
-        <input type="text" name="search" value="<?= htmlspecialchars($_SESSION["employee-search"]) ?>" placeholder="Search" autofocus onfocus="this.select()" />
+            <input type="text" name="search" value="<?= htmlspecialchars($_SESSION["employee-search"] ?? "") ?>" placeholder="Search" autofocus onfocus="this.select()" />
     </label>
 
     <input type="submit" name="employees" value="Search" />
@@ -26,3 +26,8 @@ if (isset($_POST["employees"]))
         <p><?= $employee->getId() ?> <?= $employee->getName() ?> <?= $employee->getPermission()->value ?></p>
     <?php endforeach ?>
 <?php endif ?>
+<?php
+
+unset($_SESSION["employee-search"]);
+
+?>
