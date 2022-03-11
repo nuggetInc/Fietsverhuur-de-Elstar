@@ -16,7 +16,7 @@ class Database
     public function hasEmployeeName(string $username): bool
     {
         $params = array(":name" => $username);
-        $sth = $this->pdo->prepare("SELECT 1 FROM `employee` WHERE `name` = :name; LIMIT 1");
+        $sth = $this->pdo->prepare("SELECT 1 FROM `employee` WHERE `name` = :name LIMIT 1;");
         $sth->execute($params);
 
         return $sth->rowCount() > 0;
