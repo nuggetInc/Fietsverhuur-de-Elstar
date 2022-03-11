@@ -52,6 +52,8 @@ if (isset($_POST["login"]))
 ?>
 <div class="page-wrapper">
     <form id="login" method="POST" onsubmit="return validateLoginForm()">
+        <h1>Login</h1>
+
         <!-- Only create the element for storing the error if there is one -->
         <?php if (isset($_SESSION["login-error"])) : ?>
             <p id="login-error"><?= $_SESSION["login-error"] ?></p>

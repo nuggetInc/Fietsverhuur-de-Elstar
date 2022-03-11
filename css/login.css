@@ -10,6 +10,13 @@
     align-items: stretch;
 }
 
+#login h1 {
+    margin: 0;
+    padding: 0;
+    
+    text-align: center;
+}
+
 #login > label {
     margin: 0;
     padding: 0;
