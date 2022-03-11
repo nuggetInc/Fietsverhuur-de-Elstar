@@ -17,7 +17,7 @@ class Database
     public function hasEmployeeName(string $username): bool
     {
         $params = array(":name" => $username);
-        $sth = $this->pdo->prepare("SELECT 1 FROM `employee` WHERE `name` = :name;");
+        $sth = $this->pdo->prepare("SELECT 1 FROM `employee` WHERE `name` = :name; LIMIT 1");
         $sth->execute($params);
 
         return $sth->rowCount() > 0;
@@ -26,14 +26,15 @@ class Database
     public function getEmployee(string $username): ?Employee
     {
         $params = array(":name" => $username);
-        $sth = $this->pdo->prepare("SELECT `name`, `permission` FROM `employee` WHERE `name` = :name;");
+        $sth = $this->pdo->prepare("SELECT `id`, `name`, `permission` FROM `employee` WHERE `name` = :name LIMIT 1;");
         $sth->execute($params);
 
         if ($row = $sth->fetch())
         {
+            $id = $row["id"];
             $name = $row["name"];
             $permission = Permission::from($row["permission"]);
-            return new Employee($name, $permission);
+            return new Employee($id, $name, $permission);
         }
 
         return null;
@@ -41,8 +42,8 @@ class Database
 
     public function getEmployeeHash(Employee $user): ?string
     {
-        $params = array(":name" => $user->GetName());
-        $sth = $this->pdo->prepare("SELECT `hash` FROM `employee` WHERE `name` = :name;");
+        $params = array(":id" => $user->getId());
+        $sth = $this->pdo->prepare("SELECT `hash` FROM `employee` WHERE `id` = :id LIMIT 1;");
         $sth->execute($params);
 
         return $sth->fetchColumn(0);
@@ -56,6 +57,8 @@ class Database
         $sth = $this->pdo->prepare("INSERT INTO `employee` (`name`, `hash`, `permission`) VALUES (:name, :hash, :permission);");
         $sth->execute($params);
 
-        return new Employee($name, $permission);
+        $id = intval($this->pdo->lastInsertId());
+
+        return new Employee($id, $name, $permission);
     }
 }
