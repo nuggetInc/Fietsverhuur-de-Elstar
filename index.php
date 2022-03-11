@@ -16,6 +16,7 @@ $database = new Database();
 <head>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/home.css">
     <title>Login</title>
 </head>
 
@@ -24,8 +25,8 @@ $database = new Database();
 
     if (isset($_SESSION["user"]))
     {
-        unset($_SESSION["user"]);
-        // require("home.php");
+        // unset($_SESSION["user"]);
+        require("pages/home.php");
     }
     else
     {
