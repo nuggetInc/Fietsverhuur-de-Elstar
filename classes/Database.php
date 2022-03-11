@@ -3,7 +3,6 @@
 declare(strict_types=1);
 
 require_once("Employee.php");
-require_once("Permission.php");
 
 class Database
 {
@@ -26,15 +25,13 @@ class Database
     public function getEmployee(string $username): ?Employee
     {
         $params = array(":name" => $username);
-        $sth = $this->pdo->prepare("SELECT `id`, `name`, `permission` FROM `employee` WHERE `name` = :name LIMIT 1;");
+        $sth = $this->pdo->prepare("SELECT `name` FROM `employee` WHERE `name` = :name LIMIT 1;");
         $sth->execute($params);
 
         if ($row = $sth->fetch())
         {
-            $id = $row["id"];
             $name = $row["name"];
-            $permission = Permission::from($row["permission"]);
-            return new Employee($id, $name, $permission);
+            return new Employee($name);
         }
 
         return null;
@@ -43,17 +40,15 @@ class Database
     public function getEmployeesLike(string $match): array
     {
         $params = array(":match" => $match);
-        $sth = $this->pdo->prepare("SELECT `id`, `name`, `permission` FROM `employee` WHERE `name` LIKE :match;");
+        $sth = $this->pdo->prepare("SELECT `name` FROM `employee` WHERE `name` LIKE :match;");
         $sth->execute($params);
 
         $employees = array();
 
         while ($row = $sth->fetch())
         {
-            $id = $row["id"];
             $name = $row["name"];
-            $permission = Permission::from($row["permission"]);
-            array_push($employees, new Employee($id, $name, $permission));
+            array_push($employees, new Employee($name));
         }
 
         return $employees;
@@ -61,23 +56,21 @@ class Database
 
     public function getEmployeeHash(Employee $user): ?string
     {
-        $params = array(":id" => $user->getId());
-        $sth = $this->pdo->prepare("SELECT `hash` FROM `employee` WHERE `id` = :id LIMIT 1;");
+        $params = array(":name" => $user->getName());
+        $sth = $this->pdo->prepare("SELECT `hash` FROM `employee` WHERE `name` = :name LIMIT 1;");
         $sth->execute($params);
 
         return $sth->fetchColumn(0);
     }
 
-    public function registerEmployee(string $name, string $password, Permission $permission): Employee
+    public function registerEmployee(string $name, string $password): Employee
     {
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
-        $params = array(":name" => $name, ":hash" => $hash, ":permission" => $permission->value);
-        $sth = $this->pdo->prepare("INSERT INTO `employee` (`name`, `hash`, `permission`) VALUES (:name, :hash, :permission);");
+        $params = array(":name" => $name, ":hash" => $hash);
+        $sth = $this->pdo->prepare("INSERT INTO `employee` (`name`, `hash`) VALUES (:name, :hash);");
         $sth->execute($params);
 
-        $id = intval($this->pdo->lastInsertId());
-
-        return new Employee($id, $name, $permission);
+        return new Employee($name);
     }
 }
