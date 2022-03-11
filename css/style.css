@@ -1,6 +1,7 @@
 :root {
     --background-color: #ffECD1;
     --highlight-color: #E2B19D;
+    --header-color: #ffE9A7;
     --input-color: #FFF;
     --error-color: #F00;
 }
@@ -13,8 +14,6 @@ body {
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 
     background-color: var(--background-color);
 }

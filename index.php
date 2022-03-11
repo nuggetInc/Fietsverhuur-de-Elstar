@@ -16,6 +16,7 @@ $database = new Database();
 <head>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/reserve.css">
     <title>Login</title>
 </head>

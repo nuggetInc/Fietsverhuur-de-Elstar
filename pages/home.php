@@ -3,15 +3,16 @@
 declare(strict_types=1);
 
 ?>
-<header>
+<header id="header">
     <ul>
-        <li><a href="?page=logout">Logout<a></li>
+        <li><a href="?page=logout">Logout</a></li>
+        <li><a href="?page=reserve">Reserve</a></li>
     </ul>
 </header>
 <div class="page-wrapper">
     <?php
 
-    $page = $_GET["page"] ?? null;
+    $page = $_GET["page"] ?? "reserve";
 
     switch ($page)
     {
@@ -20,9 +21,6 @@ declare(strict_types=1);
             break;
         case "logout":
             require("pages/logout.php");
-            break;
-        case null:
-            require("pages/reserve.php");
             break;
     }
 
