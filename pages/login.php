@@ -18,7 +18,7 @@ if (isset($_POST["login"]))
     if (isset($_SESSION["login-name-error"]) || isset($_SESSION["login-password-error"]))
     {
         // Reload page to clear POST and stop further execution
-        header("Location: .");
+        header("Location: ?" . http_build_query($_GET));
         exit;
     }
 
@@ -32,7 +32,7 @@ if (isset($_POST["login"]))
             $_SESSION["user"] = $user;
 
             // Reload page with now logged in user
-            header("Location: .");
+            header("Location: ?" . http_build_query($_GET));
             exit;
         }
     }
@@ -45,7 +45,7 @@ if (isset($_POST["login"]))
     // Save username value so we're able to restore it after a reload
     $_SESSION["login-name"] =  $_POST["name"];
 
-    header("Location: .");
+    header("Location: ?" . http_build_query($_GET));
     exit;
 }
 
