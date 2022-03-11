@@ -40,6 +40,25 @@ class Database
         return null;
     }
 
+    public function getEmployeesLike(string $match): array
+    {
+        $params = array(":match" => $match);
+        $sth = $this->pdo->prepare("SELECT `id`, `name`, `permission` FROM `employee` WHERE `name` LIKE :match;");
+        $sth->execute($params);
+
+        $employees = array();
+
+        while ($row = $sth->fetch())
+        {
+            $id = $row["id"];
+            $name = $row["name"];
+            $permission = Permission::from($row["permission"]);
+            array_push($employees, new Employee($id, $name, $permission));
+        }
+
+        return $employees;
+    }
+
     public function getEmployeeHash(Employee $user): ?string
     {
         $params = array(":id" => $user->getId());

@@ -8,6 +8,7 @@ declare(strict_types=1);
         <!-- Like the switch below this is only temporary -->
         <li><a href="?page=logout">Logout</a></li>
         <li><a href="?page=reserve">Reserve</a></li>
+        <li><a href="?page=employees">Employees</a></li>
     </ul>
 </header>
 <div class="page-wrapper">
@@ -26,6 +27,9 @@ declare(strict_types=1);
             break;
         case "logout":
             require("pages/logout.php");
+            break;
+        case "employees":
+            require("pages/employees.php");
             break;
     }
 
