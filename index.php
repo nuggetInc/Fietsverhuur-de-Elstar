@@ -25,7 +25,6 @@ $database = new Database();
 
     if (isset($_SESSION["user"]))
     {
-        // unset($_SESSION["user"]);
         require("pages/home.php");
     }
     else
