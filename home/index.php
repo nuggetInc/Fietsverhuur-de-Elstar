@@ -38,21 +38,24 @@ if (!isset($_SESSION["user"]))
         $getdate_wday = (getdate()["wday"] == 0) ? 7 : getdate()["wday"] - 1;
         $date = date("d-m-Y", strtotime("-" . $getdate_wday .  " days"));
 
-        for ($j = 0; $j < 4; $j++)
-        {
-            echo "<tr>";
-            for ($i = 0; $i < 7; $i++)
+            for($j = 0; $j < 20; $j++) 
             {
-                $color = ($date == date("d-m-Y")) ? "green" : "gray";
+                echo "<tr>";
+                for($i = 0; $i < 7; $i++) 
+                {
+                    $color = ($date == date("d-m-Y")) ? "green" : ((getdate(strtotime($date))["wday"] == 6 ||getdate(strtotime($date))["wday"]== 0) ? "gray" : "lightgray");
+                    echo "
+                    <td style='background-color: {$color}'>
+                        <p class='table-text'>{$date}</p>
+                        <p class='table-text'>25/100</p>
+                        <button></button>
 
+                    </td>";
+                    $date = date("d-m-Y", strtotime($date .  "+1 days"));
 
-                echo "<td style='background-color: {$color}'>{$date}</td>";
-
-
-                $date = date("d-m-Y", strtotime($date .  "+1 days"));
+                }
+                echo "</tr>";
             }
-            echo "</tr>";
-        }
 
         ?>
     </table>
