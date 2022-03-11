@@ -22,3 +22,7 @@ body {
 .page-wrapper {
     margin: auto;
 }
+
+.error {
+    color: var(--error-color);
+}

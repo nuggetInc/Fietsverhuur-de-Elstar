@@ -11,13 +11,11 @@ if (isset($_POST["employees"]))
 }
 
 ?>
-<form id="employees" method="POST">
-    <h1>Search</h1>
+<form method="POST">
+    <header>Search</header>
 
     <label>
-        <span class="label">
-            <h3>Search</h3>
-        </span>
+        <header>Search</header>
         <input type="text" name="search" value="<?= htmlspecialchars($_SESSION["employee-search"]) ?>" placeholder="Search" autofocus onfocus="this.select()" />
     </label>
 
