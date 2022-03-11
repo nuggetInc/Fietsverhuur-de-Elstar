@@ -64,7 +64,7 @@ if (isset($_POST["login"]))
                     <?= $_SESSION["login-name-error"] ?? "" ?>
                 </span>
             </span>
-            <input id="login-name" class="<?= isset($_SESSION["login-name-error"]) ? "error" : "" ?>" oninput="validateUsername()" type="text" name="name" value="<?= $_SESSION["login-name"] ?? "" ?>" placeholder="Username" autofocus onfocus="this.select()" />
+            <input id="login-name" class="<?= isset($_SESSION["login-name-error"]) ? "error" : "" ?>" oninput="validateUsername()" type="text" name="name" value="<?= htmlspecialchars($_SESSION["login-name"] ?? "") ?>" placeholder="Username" autofocus onfocus="this.select()" />
         </label>
 
         <label>
