@@ -33,7 +33,7 @@ if (!isset($_SESSION["user"]))
                 <td style='background-color: {$color}'>
                     <p class='table-text'>{$date}</p>
                     <p class='table-text'>25/100</p>
-                    <button></button>
+                    <button><a>Reserveer</a></button>
                 </td>";
                 $date = date("d-m-Y", strtotime($date .  "+1 days"));
             }
