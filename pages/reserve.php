@@ -9,6 +9,12 @@ if (!isset($_SESSION["user"]))
 }
 
 ?>
+
+<form action="" method="post">
+    <input type="text" name="searchBikeCount">
+    <input type="submit">
+</form>
+
 <table>
     <tr>
         <th>Maandag</th>
@@ -20,18 +26,27 @@ if (!isset($_SESSION["user"]))
         <th>Zondag</th>
     </tr>
     <?php
+
+    $totalBikeCount = (new Bike)->getTotalBikeCount();
+    $bikeRental = new BikeRental();
+
+
     $getdate_wday = (getdate()["wday"] == 0) ? 6 : getdate()["wday"] - 1;
     $date = date("d-m-Y", strtotime("-" . $getdate_wday .  " days"));
+
     for($j = 0; $j < 20; $j++) 
     {
         echo "<tr>";
         for($i = 0; $i < 7; $i++) 
         {
+            $bikeRental->setDate(date("Y-m-d", strtotime($date)));
+            $bikeCountReserved= $totalBikeCount - count($bikeRental->getReserved());
             $color = ($date == date("d-m-Y")) ? "green" : ((getdate(strtotime($date))["wday"] == 6 ||getdate(strtotime($date))["wday"]== 0) ? "gray" : "lightgray");
+
             echo "
             <td style='background-color: {$color}'>
                 <p class='table-text'>{$date}</p>
-                <p class='table-text'>25/100</p>
+                <p class='table-text'> {$bikeCountReserved}/{$totalBikeCount}</p>
                 <button><a>Reserveer</a></button>
             </td>";
             $date = date("d-m-Y", strtotime($date .  "+1 days"));

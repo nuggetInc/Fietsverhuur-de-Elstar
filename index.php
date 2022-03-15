@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 require_once("classes/Database.php");
 require_once("classes/Employee.php");
+require_once("classes/Bike.php");
+require_once("classes/BikeRental.php");
 
 session_start();
 
