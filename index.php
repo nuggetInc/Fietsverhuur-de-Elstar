@@ -17,6 +17,7 @@ session_start();
     <link rel="stylesheet" href="css/form.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/reserve.css">
+    <link rel="stylesheet" href="css/search.css">
     <title>Login</title>
 </head>
 

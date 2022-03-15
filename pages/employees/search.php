@@ -27,6 +27,15 @@ if (isset($_POST["employees"]))
     <?php foreach (Employee::like("%" . $_SESSION["employee-search"] . "%") as $employee) : ?>
         <p><?= $employee->getName() ?></p>
     <?php endforeach ?>
+<?php else : ?>
+    <?php foreach (Employee::like("%") as $employee) : ?>
+        <div class="employee">
+            <header>
+                <h3><?= $employee->getName() ?></h3>
+                <span>[Permission]</span>
+            </header>
+        </div>
+    <?php endforeach ?>
 <?php endif ?>
 <?php
 

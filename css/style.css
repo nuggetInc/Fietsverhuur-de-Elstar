@@ -21,6 +21,11 @@ body {
 
 .page-wrapper {
     margin: auto;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 }
 
 .error {
