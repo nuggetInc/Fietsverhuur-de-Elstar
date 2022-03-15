@@ -17,12 +17,15 @@ for ($i = 0; $i < count($children); $i++)
         <?php if ($child == $current) : ?>
             <?php $children = $child->getChildren(); ?>
             <?php if ($children) : ?>
-                <?php require("header.php"); ?>
+                <div class="folder">
+                    <li class="current"><a href="?page=<?= $child->getName() ?>"><?= $child->getDisplay() ?></a></li>
+                    <?php require("header.php"); ?>
+                </div>
             <?php else : ?>
-                <li><a href="?page=<?= $child->getName() ?>"><?= $child->getName() ?></a></li>
+                <li class="current"><a href="?page=<?= $child->getName() ?>"><?= $child->getDisplay() ?></a></li>
             <?php endif ?>
         <?php else : ?>
-            <li><a href="?page=<?= $child->getName() ?>"><?= $child->getName() ?></a></li>
+            <li><a href="?page=<?= $child->getName() ?>"><?= $child->getDisplay() ?></a></li>
         <?php endif ?>
     <?php endforeach ?>
 </ul>

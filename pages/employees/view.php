@@ -22,7 +22,7 @@ if (isset($_POST["employees"]))
     <input type="submit" name="employees" value="Search" />
 </form>
 <?php if (isset($_SESSION["employee-search"])) : ?>
-    <?php foreach (Employee::like($_SESSION["employee-search"]) as $employee) : ?>
+    <?php foreach (Employee::like("%" . $_SESSION["employee-search"] . "%") as $employee) : ?>
         <p><?= $employee->getName() ?></p>
     <?php endforeach ?>
 <?php endif ?>
