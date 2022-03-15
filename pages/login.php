@@ -22,19 +22,14 @@ if (isset($_POST["login"]))
         exit;
     }
 
-    $user = $database->getEmployee($_POST["name"]);
-    if (isset($user))
+    $user = Employee::fromName($_POST["name"]);
+    if (isset($user) && password_verify($_POST["password"], $user->getHash()))
     {
-        $hash = $database->getEmployeeHash($user);
+        $_SESSION["user"] = $user;
 
-        if (password_verify($_POST["password"], $hash))
-        {
-            $_SESSION["user"] = $user;
-
-            // Reload page with now logged in user
-            header("Location: ?" . http_build_query($_GET));
-            exit;
-        }
+        // Reload page with now logged in user
+        header("Location: ?" . http_build_query($_GET));
+        exit;
     }
 
     // Empty strings means that there is an error, but no field specific message

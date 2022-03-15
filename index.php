@@ -9,8 +9,6 @@ require_once("classes/BikeRental.php");
 
 session_start();
 
-$database = new Database();
-
 ?>
 <!DOCTYPE html>
 <html>
