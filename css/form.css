@@ -69,7 +69,7 @@ form input {
 
 form input[type="submit"] {
     font-size: 1rem;
-    background-color: var(--highlight-color);
+    background-color: var(--active-color);
 
     transition: filter .2s;
 }

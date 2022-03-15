@@ -33,7 +33,7 @@
 
     border-radius: 1rem;
 
-    background-color: var(--header-color);
+    background-color: var(--highlight-color);
     transition: filter .2s;
 
     font-weight: bold;
@@ -45,7 +45,7 @@
 
     border-radius: 1rem;
 
-    background-color: var(--highlight-color);
+    background-color: var(--active-color);
 }
 
 #header li:hover {
