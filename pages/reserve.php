@@ -9,11 +9,13 @@ if (!isset($_SESSION["user"]))
 }
 
 ?>
+<div class="form-wrapper">
+    <form action="" method="post">
+        <input type="text" name="searchBikeCount">
+        <input type="submit">
+    </form>
+</div>
 
-<form action="" method="post">
-    <input type="text" name="searchBikeCount">
-    <input type="submit">
-</form>
 
 <table>
     <tr>
