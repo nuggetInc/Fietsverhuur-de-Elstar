@@ -11,10 +11,12 @@ if (!isset($_SESSION["user"]))
 ?>
 <div class="form-wrapper">
     <form action="" method="post">
-        <input type="text" name="searchBikeCount">
-        <input type="submit">
+        <input type="text" name="searchBikeCount" placeholder="Zoek aantal fietsen">
+        <input type="submit" value="Zoek">
     </form>
 </div>
+
+
 
 
 <table>
@@ -36,20 +38,49 @@ if (!isset($_SESSION["user"]))
     $getdate_wday = (getdate()["wday"] == 0) ? 6 : getdate()["wday"] - 1;
     $date = date("d-m-Y", strtotime("-" . $getdate_wday .  " days"));
 
-    for($j = 0; $j < 20; $j++) 
+    $weekCount = 10;
+
+    if(isset($_GET["dayInfo"]))
+    {
+        $weekCount = 1;
+        $getWday = (getdate(strtotime($_GET["dayInfo"]))["wday"] == 0) ? 6 : getdate(strtotime($_GET["dayInfo"]))["wday"] - 1;
+        $date = date("d-m-Y", strtotime("-" . $getWday . " days"));
+        echo $getWday;
+        echo "<br>";
+        echo $date;
+    }
+
+    for($j = 0; $j < $weekCount; $j++) 
     {
         echo "<tr>";
         for($i = 0; $i < 7; $i++) 
         {
             $bikeRental->setDate(date("Y-m-d", strtotime($date)));
-            $bikeCountReserved= $totalBikeCount - count($bikeRental->getReserved());
-            $color = ($date == date("d-m-Y")) ? "green" : ((getdate(strtotime($date))["wday"] == 6 ||getdate(strtotime($date))["wday"]== 0) ? "gray" : "lightgray");
+            $bikeCountReserved = $totalBikeCount - count($bikeRental->getReserved());
+
+            $color = "";
+            if (isset($_POST["searchBikeCount"]) && $_POST["searchBikeCount"] > $bikeCountReserved)
+            {
+                $color = "darkred";
+            }
+            else if ($date == date("d-m-Y"))
+            {
+                $color = "green";
+            }
+            else if (getdate(strtotime($date))["wday"] == 6 || getdate(strtotime($date))["wday"] == 0)
+            {
+                $color = "gray";
+            }
+            else
+            {
+                $color = "lightgray";
+            }
 
             echo "
-            <td style='background-color: {$color}'>
+            <td style='background-color: {$color};'>
                 <p class='table-text'>{$date}</p>
                 <p class='table-text'> {$bikeCountReserved}/{$totalBikeCount}</p>
-                <button><a>Reserveer</a></button>
+                <button><a href='?dayInfo={$date}'>Reserveer</a></button>
             </td>";
             $date = date("d-m-Y", strtotime($date .  "+1 days"));
         }
