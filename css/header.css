@@ -34,6 +34,7 @@
     border-radius: 1rem;
 
     background-color: var(--header-color);
+    transition: filter .2s;
 }
 
 #header li.current {
@@ -43,6 +44,10 @@
     border-radius: 1rem;
 
     background-color: var(--highlight-color);
+}
+
+#header li:hover {
+    filter: brightness(90%);
 }
 
 #header a {

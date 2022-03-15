@@ -70,4 +70,10 @@ form input {
 form input[type="submit"] {
     font-size: 1rem;
     background-color: var(--highlight-color);
+
+    transition: filter .2s;
+}
+
+form input[type="submit"]:hover {
+    filter: brightness(90%);
 }
