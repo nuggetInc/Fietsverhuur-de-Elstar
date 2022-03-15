@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once("classes/Database.php");
+
 class Page
 {
     private string $name;
