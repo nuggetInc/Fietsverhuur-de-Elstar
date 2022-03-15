@@ -35,6 +35,8 @@
 
     background-color: var(--header-color);
     transition: filter .2s;
+
+    font-weight: bold;
 }
 
 #header li.current {
