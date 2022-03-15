@@ -53,7 +53,7 @@ class Employee
         {
             $name = $row["name"];
             $hash = $row["hash"];
-            array_push($employees, new Employee($name, $hash));
+            $employees[] = new Employee($name, $hash);
         }
 
         return $employees;
