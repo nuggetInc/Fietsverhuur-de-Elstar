@@ -25,6 +25,15 @@ class Employee
         return $this->hash;
     }
 
+    public static function exists(string $name): bool
+    {
+        $params = array(":name" => $name);
+        $sth = Database::getPDO()->prepare("SELECT 1 FROM `employee` WHERE `name` = :name LIMIT 1;");
+        $sth->execute($params);
+
+        return $sth->rowCount() === 1;
+    }
+
     public static function fromName(string $name): ?Employee
     {
         $params = array(":name" => $name);

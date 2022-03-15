@@ -10,6 +10,9 @@ if (isset($_POST["login"]))
         $_SESSION["login-name-error"] = "Username can't be empty :(";
     }
 
+    // Save username value so we're able to restore it after a reload
+    $_SESSION["login-name"] =  $_POST["name"];
+
     if (!isset($_POST["password"]) || $_POST["password"] === "")
     {
         $_SESSION["login-password-error"] = "Password can't be empty :(";
@@ -27,6 +30,8 @@ if (isset($_POST["login"]))
     {
         $_SESSION["user"] = $user;
 
+        unset($_SESSION["login-name"]);
+
         // Reload page with now logged in user
         header("Location: ?" . http_build_query($_GET));
         exit;
@@ -36,9 +41,6 @@ if (isset($_POST["login"]))
     $_SESSION["login-error"] = "Username or password is incorrect";
     $_SESSION["login-name-error"] =  "";
     $_SESSION["login-password-error"] = "";
-
-    // Save username value so we're able to restore it after a reload
-    $_SESSION["login-name"] =  $_POST["name"];
 
     header("Location: ?" . http_build_query($_GET));
     exit;
@@ -61,7 +63,7 @@ if (isset($_POST["login"]))
                     <?= $_SESSION["login-name-error"] ?? "" ?>
                 </span>
             </header>
-            <input id="login-name" oninput="validateUsername()" type="text" name="name" value="<?= htmlspecialchars($_SESSION["login-name"] ?? "") ?>" placeholder="Username" autofocus onfocus="this.select()" />
+            <input id="login-name" oninput="validateLoginUsername()" type="text" name="name" value="<?= htmlspecialchars($_SESSION["login-name"] ?? "") ?>" placeholder="Username" autofocus onfocus="this.select()" />
         </label>
 
         <label>
@@ -71,33 +73,25 @@ if (isset($_POST["login"]))
                     <?= $_SESSION["login-password-error"] ?? "" ?>
                 </span>
             </header>
-            <input id="login-password" oninput="validatePassword()" type="password" name="password" placeholder="Password" />
+            <input id="login-password" oninput="validateLoginPassword()" type="password" name="password" placeholder="Password" />
         </label>
 
         <input class="submit" type="submit" name="login" value="Login" />
     </form>
 </div>
 <script type="text/javascript">
+    const nameInput = document.getElementById("login-name");
+    const passwordInput = document.getElementById("login-password");
+
+    const nameError = document.getElementById("login-name-error");
+    const passwordError = document.getElementById("login-password-error");
+
     /** @return {boolean} */
     function validateLoginForm() {
-        const name = document.getElementById("login-name").value;
-        const password = document.getElementById("login-password").value;
-
-        if (name === "") {
-            return false;
-        }
-
-        if (password === "") {
-            return false;
-        }
-
-        return true;
+        return nameInput.value !== "" && passwordInput.value !== "";
     }
 
-    function validateUsername() {
-        const nameInput = document.getElementById("login-name");
-        const nameError = document.getElementById("login-name-error");
-
+    function validateLoginUsername() {
         if (nameInput.value === "") {
             nameError.innerHTML = "Username can't be empty";
         } else {
@@ -105,10 +99,7 @@ if (isset($_POST["login"]))
         }
     }
 
-    function validatePassword() {
-        const passwordInput = document.getElementById("login-password");
-        const passwordError = document.getElementById("login-password-error");
-
+    function validateLoginPassword() {
         if (passwordInput.value === "") {
             passwordError.innerHTML = "Password can't be empty";
         } else {

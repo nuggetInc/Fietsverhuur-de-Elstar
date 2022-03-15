@@ -35,7 +35,9 @@ session_start();
             <?php require("pages/{$current->getName()}.php"); ?>
         </div>
     <?php else : ?>
-        <?php require("login.php"); ?>
+        <div class="page-wrapper">
+            <?php require("login.php"); ?>
+        </div>
     <?php endif ?>
 </body>
 
