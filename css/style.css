@@ -1,6 +1,7 @@
 :root {
     --background-color: #ffECD1;
     --highlight-color: #E2B19D;
+    --header-color: #ffE9A7;
     --input-color: #FFF;
     --error-color: #F00;
 }
@@ -13,22 +14,15 @@ body {
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 
+    font-family: Arial, Helvetica, sans-serif;
     background-color: var(--background-color);
 }
 
-/* .container {
-    margin: 0;
-    padding: 1rem;
+.page-wrapper {
+    margin: auto;
+}
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    border-radius: 1rem;
-
-    background-color: var(--container-color);
-} */
+.error {
+    color: var(--error-color);
+}

@@ -18,13 +18,13 @@ if (isset($_POST["login"]))
     if (isset($_SESSION["login-name-error"]) || isset($_SESSION["login-password-error"]))
     {
         // Reload page to clear POST and stop further execution
-        header("Location: .");
+        header("Location: ?" . http_build_query($_GET));
         exit;
     }
 
-    if ($database->hasEmployeeName($_POST["name"]))
+    $user = $database->getEmployee($_POST["name"]);
+    if (isset($user))
     {
-        $user = $database->getEmployee($_POST["name"]);
         $hash = $database->getEmployeeHash($user);
 
         if (password_verify($_POST["password"], $hash))
@@ -32,7 +32,7 @@ if (isset($_POST["login"]))
             $_SESSION["user"] = $user;
 
             // Reload page with now logged in user
-            header("Location: .");
+            header("Location: ?" . http_build_query($_GET));
             exit;
         }
     }
@@ -45,39 +45,43 @@ if (isset($_POST["login"]))
     // Save username value so we're able to restore it after a reload
     $_SESSION["login-name"] =  $_POST["name"];
 
-    header("Location: .");
+    header("Location: ?" . http_build_query($_GET));
     exit;
 }
 
 ?>
-<form id="login" method="POST" onsubmit="return validateLoginForm()">
-    <!-- Only create the element for storing the error if there is one -->
-    <?php if (isset($_SESSION["login-error"])) : ?>
-        <p id="login-error"><?= $_SESSION["login-error"] ?></p>
-    <?php endif ?>
+<div class="page-wrapper">
+    <form method="POST" onsubmit="return validateLoginForm()">
+        <header>Login</header>
 
-    <label>
-        <span class="label">
-            <h3>Username</h3>
-            <span id="login-name-error" class="error">
-                <?= $_SESSION["login-name-error"] ?? "" ?>
-            </span>
-        </span>
-        <input id="login-name" class="<?= isset($_SESSION["login-name-error"]) ? "error" : "" ?>" oninput="validateUsername()" type="text" name="name" value="<?= $_SESSION["login-name"] ?? "" ?>" placeholder="Username" autofocus onfocus="this.select()" />
-    </label>
+        <!-- Only create the element for storing the error if there is one -->
+        <?php if (isset($_SESSION["login-error"])) : ?>
+            <span class="error"><?= $_SESSION["login-error"] ?></span>
+        <?php endif ?>
 
-    <label>
-        <span class="label">
-            <h3>Password</h3>
-            <span id="login-password-error" class="error">
-                <?= $_SESSION["login-password-error"] ?? "" ?>
-            </span>
-        </span>
-        <input id="login-password" class="<?= isset($_SESSION["login-password-error"]) ? "error" : "" ?>" oninput="validatePassword()" type="password" name="password" placeholder="Password" />
-    </label>
+        <label>
+            <header>
+                <h3>Username</h3>
+                <span id="login-name-error" class="error">
+                    <?= $_SESSION["login-name-error"] ?? "" ?>
+                </span>
+            </header>
+            <input id="login-name" oninput="validateUsername()" type="text" name="name" value="<?= htmlspecialchars($_SESSION["login-name"] ?? "") ?>" placeholder="Username" autofocus onfocus="this.select()" />
+        </label>
 
-    <input class="submit" type="submit" name="login" value="Login" />
-</form>
+        <label>
+            <header>
+                <h3>Password</h3>
+                <span id="login-password-error" class="error">
+                    <?= $_SESSION["login-password-error"] ?? "" ?>
+                </span>
+            </header>
+            <input id="login-password" oninput="validatePassword()" type="password" name="password" placeholder="Password" />
+        </label>
+
+        <input class="submit" type="submit" name="login" value="Login" />
+    </form>
+</div>
 <script type="text/javascript">
     /** @return {boolean} */
     function validateLoginForm() {
@@ -100,10 +104,8 @@ if (isset($_POST["login"]))
         const nameError = document.getElementById("login-name-error");
 
         if (nameInput.value === "") {
-            nameInput.classList.add("error");
             nameError.innerHTML = "Username can't be empty";
         } else {
-            nameInput.classList.remove("error");
             nameError.innerHTML = "";
         }
     }
@@ -113,10 +115,8 @@ if (isset($_POST["login"]))
         const passwordError = document.getElementById("login-password-error");
 
         if (passwordInput.value === "") {
-            passwordInput.classList.add("error");
             passwordError.innerHTML = "Password can't be empty";
         } else {
-            passwordInput.classList.remove("error");
             passwordError.innerHTML = "";
         }
     }

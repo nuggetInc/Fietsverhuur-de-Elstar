@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 require_once("classes/Database.php");
 require_once("classes/Employee.php");
+require_once("classes/Permission.php");
 
 session_start();
 
@@ -15,7 +16,8 @@ $database = new Database();
 
 <head>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/home.css">
     <link rel="stylesheet" href="css/reserve.css">
     <title>Login</title>
 </head>
@@ -25,7 +27,7 @@ $database = new Database();
 
     if (isset($_SESSION["user"]))
     {
-        require("pages/reserve.php");
+        require("pages/home.php");
     }
     else
     {

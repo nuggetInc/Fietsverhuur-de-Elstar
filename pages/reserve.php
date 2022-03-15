@@ -9,7 +9,6 @@ if (!isset($_SESSION["user"]))
 }
 
 ?>
-<p><a href="logout.php">Logout</a></p>
 <table>
     <tr>
         <th>Maandag</th>
