@@ -7,8 +7,6 @@ require_once("classes/Employee.php");
 
 session_start();
 
-$database = new Database();
-
 ?>
 <!DOCTYPE html>
 <html>
