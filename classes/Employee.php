@@ -9,7 +9,7 @@ class Employee
     private string $name;
     private string $hash;
 
-    public function __construct(string $name, string $hash)
+    private function __construct(string $name, string $hash)
     {
         $this->name = $name;
         $this->hash = $hash;
