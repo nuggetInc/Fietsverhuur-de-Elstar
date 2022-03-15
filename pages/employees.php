@@ -16,14 +16,14 @@ if (isset($_POST["employees"]))
 
     <label>
         <header>Search</header>
-            <input type="text" name="search" value="<?= htmlspecialchars($_SESSION["employee-search"] ?? "") ?>" placeholder="Search" autofocus onfocus="this.select()" />
+        <input type="text" name="search" value="<?= htmlspecialchars($_SESSION["employee-search"] ?? "") ?>" placeholder="Search" autofocus onfocus="this.select()" />
     </label>
 
     <input type="submit" name="employees" value="Search" />
 </form>
 <?php if (isset($_SESSION["employee-search"])) : ?>
     <?php foreach ($database->getEmployeesLike($_SESSION["employee-search"]) as $employee) : ?>
-        <p><?= $employee->getId() ?> <?= $employee->getName() ?> <?= $employee->getPermission()->value ?></p>
+        <p><?= $employee->getName() ?></p>
     <?php endforeach ?>
 <?php endif ?>
 <?php
