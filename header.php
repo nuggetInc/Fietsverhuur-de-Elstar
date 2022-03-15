@@ -18,14 +18,20 @@ for ($i = 0; $i < count($children); $i++)
             <?php $children = $child->getChildren(); ?>
             <?php if ($children) : ?>
                 <div class="folder">
-                    <li class="current"><a href="?page=<?= $child->getName() ?>"><?= $child->getDisplay() ?></a></li>
+                    <a href="?page=<?= $child->getName() ?>">
+                        <li class="current"><?= $child->getDisplay() ?></li>
+                    </a>
                     <?php require("header.php"); ?>
                 </div>
             <?php else : ?>
-                <li class="current"><a href="?page=<?= $child->getName() ?>"><?= $child->getDisplay() ?></a></li>
+                <a href="?page=<?= $child->getName() ?>">
+                    <li class="current"><?= $child->getDisplay() ?></li>
+                </a>
             <?php endif ?>
         <?php else : ?>
-            <li><a href="?page=<?= $child->getName() ?>"><?= $child->getDisplay() ?></a></li>
+            <a href="?page=<?= $child->getName() ?>">
+                <li><?= $child->getDisplay() ?></li>
+            </a>
         <?php endif ?>
     <?php endforeach ?>
 </ul>
