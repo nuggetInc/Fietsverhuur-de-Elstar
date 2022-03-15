@@ -15,7 +15,9 @@ if (isset($_POST["employees"]))
     <header>Search</header>
 
     <label>
-        <header>Search</header>
+        <header>
+            <h3>Search<h3>
+        </header>
         <input type="text" name="search" value="<?= htmlspecialchars($_SESSION["employee-search"] ?? "") ?>" placeholder="Search" autofocus onfocus="this.select()" />
     </label>
 
