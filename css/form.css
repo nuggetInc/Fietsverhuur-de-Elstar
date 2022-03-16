@@ -41,14 +41,18 @@ form label > header {
     flex-direction: row;
     justify-content: space-between;
     align-items: end;
-
-    /* font-size: 1rem;
-    font-weight: bolder; */
+    gap: 1rem;
 }
 
 form label > header h3 {
     margin: 0;
     padding: 0;
+
+    white-space: nowrap;
+}
+
+form label > header .error {
+    white-space: nowrap;    
 }
 
 form input {
@@ -65,5 +69,11 @@ form input {
 
 form input[type="submit"] {
     font-size: 1rem;
-    background-color: var(--highlight-color);
+    background-color: var(--active-color);
+
+    transition: filter .2s;
+}
+
+form input[type="submit"]:hover {
+    filter: brightness(90%);
 }

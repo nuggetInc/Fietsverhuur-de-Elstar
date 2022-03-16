@@ -15,15 +15,26 @@ if (isset($_POST["employees"]))
     <header>Search</header>
 
     <label>
-        <header>Search</header>
+        <header>
+            <h3>Search<h3>
+        </header>
         <input type="text" name="search" value="<?= htmlspecialchars($_SESSION["employee-search"] ?? "") ?>" placeholder="Search" autofocus onfocus="this.select()" />
     </label>
 
     <input type="submit" name="employees" value="Search" />
 </form>
 <?php if (isset($_SESSION["employee-search"])) : ?>
-    <?php foreach (Employee::like($_SESSION["employee-search"]) as $employee) : ?>
+    <?php foreach (Employee::like("%" . $_SESSION["employee-search"] . "%") as $employee) : ?>
         <p><?= $employee->getName() ?></p>
+    <?php endforeach ?>
+<?php else : ?>
+    <?php foreach (Employee::like("%") as $employee) : ?>
+        <div class="employee">
+            <header>
+                <h3><?= $employee->getName() ?></h3>
+                <span>[Permission]</span>
+            </header>
+        </div>
     <?php endforeach ?>
 <?php endif ?>
 <?php

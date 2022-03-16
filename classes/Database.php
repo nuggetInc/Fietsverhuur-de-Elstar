@@ -2,8 +2,6 @@
 
 declare(strict_types=1);
 
-require_once("Employee.php");
-
 class Database
 {
     public static function getPDO(): PDO

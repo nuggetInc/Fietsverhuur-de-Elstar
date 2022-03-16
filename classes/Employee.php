@@ -25,6 +25,17 @@ class Employee
         return $this->hash;
     }
 
+    /** Check if a user exist */
+    public static function exists(string $name): bool
+    {
+        $params = array(":name" => $name);
+        $sth = Database::getPDO()->prepare("SELECT 1 FROM `employee` WHERE `name` = :name LIMIT 1;");
+        $sth->execute($params);
+
+        return $sth->rowCount() === 1;
+    }
+
+    /** Create a user object from name */
     public static function fromName(string $name): ?Employee
     {
         $params = array(":name" => $name);
@@ -41,6 +52,7 @@ class Employee
         return null;
     }
 
+    /** Get all the users that match a string */
     public static function like($match): array
     {
         $params = array(":match" => $match);
@@ -59,6 +71,7 @@ class Employee
         return $employees;
     }
 
+    /** Register a new user */
     public static function register(string $name, string $password): Employee
     {
         $hash = password_hash($password, PASSWORD_DEFAULT);

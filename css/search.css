@@ -1,0 +1,23 @@
+.employee {
+    margin: 0;
+    padding: 1rem;
+
+    width: 100%;
+
+    border-radius: 1rem;
+    box-sizing: border-box;
+
+    background-color: var(--highlight-color);
+}
+
+.employee > header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+.employee > header h3 {
+    margin: 0;
+    padding: 0;    
+}

@@ -1,7 +1,7 @@
 :root {
     --background-color: #ffECD1;
-    --highlight-color: #E2B19D;
-    --header-color: #ffE9A7;
+    --active-color: #E2B19D;
+    --highlight-color: #ffE9A7;
     --input-color: #FFF;
     --error-color: #F00;
 }
@@ -21,9 +21,11 @@ body {
 
 .page-wrapper {
     margin: auto;
+
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 1rem;
 }
 
 .error {
