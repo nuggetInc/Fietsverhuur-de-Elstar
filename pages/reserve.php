@@ -44,7 +44,7 @@ if (!isset($_SESSION["user"]))
     {
         $weekCount = 1;
         $getWday = (getdate(strtotime($_GET["dayInfo"]))["wday"] == 0) ? 6 : getdate(strtotime($_GET["dayInfo"]))["wday"] - 1;
-        $date = date("d-m-Y", strtotime("-" . $getWday . " days"));
+        $date = date("d-m-Y", strtotime($_GET["dayInfo"] . "-" . $getWday . " days"));
         echo $getWday;
         echo "<br>";
         echo $date;
@@ -56,7 +56,8 @@ if (!isset($_SESSION["user"]))
         for($i = 0; $i < 7; $i++) 
         {
             $bikeRental->setDate(date("Y-m-d", strtotime($date)));
-            $bikeCountReserved = $totalBikeCount - count($bikeRental->getReserved());
+            $bikeRental->setStatus(1);
+            $bikeCountReserved = $totalBikeCount - count($bikeRental->getDate());
 
             $color = "";
             if (isset($_POST["searchBikeCount"]) && $_POST["searchBikeCount"] > $bikeCountReserved)
@@ -88,3 +89,27 @@ if (!isset($_SESSION["user"]))
     }
     ?>
 </table>
+
+<?php if(isset($_GET["dayInfo"])) : ?>
+
+    <table>
+        <tr>
+            <th>Medewerker</th>
+            <th>Klant</th>
+            <th>Fiets</th>
+            <th>Datum vanaf</th>
+            <th>Datum Tot</th>
+            <th>Status</th>
+            <th>Opmerking</th>
+        </tr>
+        <?php 
+        $bikeRental->setStatus(0);
+        
+        
+        
+        ?>
+
+
+    </table>
+
+<?php endif ?>

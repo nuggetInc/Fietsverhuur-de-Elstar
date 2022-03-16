@@ -6,7 +6,7 @@ require_once("Database.php");
 
 class Bike 
 {
-    public function getTotalBikeCount()
+    public static function getTotalBikeCount() : int
     {
         $sth = Database::getPDO()->prepare("SELECT * FROM Bike");
         $sth->execute();
