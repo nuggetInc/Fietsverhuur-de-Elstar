@@ -14,7 +14,7 @@ if (isset($_POST["employees"]))
 <form method="POST">
     <header>Search</header>
 
-    <label>
+    <label class="field">
         <header>
             <h3>Search<h3>
         </header>
