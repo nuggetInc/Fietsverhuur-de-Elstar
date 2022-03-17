@@ -10,22 +10,22 @@ if (isset($_POST["register"]))
 
     if (!isset($_POST["name"]) || $_POST["name"] === "")
     {
-        $_SESSION["register-name-error"] = "Username can't be empty :(";
+        $_SESSION["register-name-error"] = "Gebruikersnaam kan niet leeg zijn :(";
     }
 
     if (!isset($_POST["password"]) || $_POST["password"] === "")
     {
-        $_SESSION["register-password-error"] = "Password can't be empty :(";
+        $_SESSION["register-password-error"] = "Wachtwoord kan niet leeg zijn :(";
     }
 
     if (!isset($_POST["re-password"]) || $_POST["re-password"] === "")
     {
-        $_SESSION["register-re-password-error"] = "Repeat Password can't be empty :(";
+        $_SESSION["register-re-password-error"] = "Herhaal wachtwoord kan niet leeg zijn :(";
     }
 
     if (!isset($_POST["permission"]) || $_POST["permission"] === "")
     {
-        $_SESSION["register-permission-error"] = "Permission can't be empty :(";
+        $_SESSION["register-permission-error"] = "Toestemming kan niet leeg zijn :(";
     }
 
     if (isset($_SESSION["login-name-error"]) || isset($_SESSION["login-password-error"]) || isset($_SESSION["login-re-password-error"]))
@@ -37,7 +37,7 @@ if (isset($_POST["register"]))
 
     if ($_POST["password"] !== $_POST["re-password"])
     {
-        $_SESSION["register-error"] = "Passwords don't match :(";
+        $_SESSION["register-error"] = "Wachtwoorden zijn niet hetzelfde :(";
         $_SESSION["register-password-error"] = "";
         $_SESSION["register-re-password-error"] = "";
 
@@ -49,7 +49,7 @@ if (isset($_POST["register"]))
 
     if (Employee::exists($_POST["name"]))
     {
-        $_SESSION["register-name-error"] = "Username already exists";
+        $_SESSION["register-name-error"] = "Gebruiker bestaat al";
 
         header("Location: ?" . http_build_query($_GET));
         exit;
@@ -94,7 +94,7 @@ if (isset($_POST["register"]))
 
     <label class="field">
         <header>
-            <h3>Herhaal Wachtwoor</h3>
+            <h3>Herhaal Wachtwoord</h3>
             <span id="register-re-password-error" class="error">
                 <?= $_SESSION["register-re-password-error"] ?? "" ?>
             </span>
@@ -141,7 +141,7 @@ if (isset($_POST["register"]))
 
     function validateRegisterUsername() {
         if (nameInput.value === "") {
-            nameError.innerHTML = "Username can't be empty";
+            nameError.innerHTML = "Gebruikersnaam kan niet leeg zijn";
         } else {
             nameError.innerHTML = "";
         }
@@ -149,7 +149,7 @@ if (isset($_POST["register"]))
 
     function validateRegisterPassword() {
         if (passwordInput.value === "") {
-            passwordError.innerHTML = "Password can't be empty";
+            passwordError.innerHTML = "Wachtwoord kan niet leeg zijn";
         } else {
             passwordError.innerHTML = "";
         }
@@ -157,9 +157,9 @@ if (isset($_POST["register"]))
 
     function validateRegisterRepeatPassword() {
         if (repeatPasswordInput.value === "") {
-            repeatPasswordError.innerHTML = "Repeat password can't be empty";
+            repeatPasswordError.innerHTML = "Herhaal wachtwoord kan niet leeg zijn";
         } else if (passwordInput.value !== repeatPasswordInput.value) {
-            repeatPasswordError.innerHTML = "Passwords don't match";
+            repeatPasswordError.innerHTML = "Wachtwoorden zijn niet hetzelfde";
         } else {
             repeatPasswordError.innerHTML = "";
         }

@@ -7,7 +7,7 @@ if (isset($_POST["login"]))
 {
     if (!isset($_POST["name"]) || $_POST["name"] === "")
     {
-        $_SESSION["login-name-error"] = "Username can't be empty :(";
+        $_SESSION["login-name-error"] = "Gebruikersnaam kan niet leeg zijn :(";
     }
 
     // Save username value so we're able to restore it after a reload
@@ -15,7 +15,7 @@ if (isset($_POST["login"]))
 
     if (!isset($_POST["password"]) || $_POST["password"] === "")
     {
-        $_SESSION["login-password-error"] = "Password can't be empty :(";
+        $_SESSION["login-password-error"] = "Wachtwoord kan niet leeg zijn :(";
     }
 
     if (isset($_SESSION["login-name-error"]) || isset($_SESSION["login-password-error"]))
@@ -38,7 +38,7 @@ if (isset($_POST["login"]))
     }
 
     // Empty strings means that there is an error, but no field specific message
-    $_SESSION["login-error"] = "Username or password is incorrect";
+    $_SESSION["login-error"] = "Gebruikersnaam of wachtwoord is incorrect";
     $_SESSION["login-name-error"] =  "";
     $_SESSION["login-password-error"] = "";
 
@@ -93,7 +93,7 @@ if (isset($_POST["login"]))
 
     function validateLoginUsername() {
         if (nameInput.value === "") {
-            nameError.innerHTML = "Username can't be empty";
+            nameError.innerHTML = "Gebruikersnaam kan niet leeg zijn";
         } else {
             nameError.innerHTML = "";
         }
@@ -101,7 +101,7 @@ if (isset($_POST["login"]))
 
     function validateLoginPassword() {
         if (passwordInput.value === "") {
-            passwordError.innerHTML = "Password can't be empty";
+            passwordError.innerHTML = "Wachtwoord kan niet leeg zijn";
         } else {
             passwordError.innerHTML = "";
         }
