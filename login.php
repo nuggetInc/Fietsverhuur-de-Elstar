@@ -56,7 +56,7 @@ if (isset($_POST["login"]))
             <span class="error"><?= $_SESSION["login-error"] ?></span>
         <?php endif ?>
 
-        <label>
+        <label class="field">
             <header>
                 <h3>Username</h3>
                 <span id="login-name-error" class="error">
@@ -66,7 +66,7 @@ if (isset($_POST["login"]))
             <input id="login-name" oninput="validateLoginUsername()" type="text" name="name" value="<?= htmlspecialchars($_SESSION["login-name"] ?? "") ?>" placeholder="Username" autofocus onfocus="this.select()" />
         </label>
 
-        <label>
+        <label class="field">
             <header>
                 <h3>Password</h3>
                 <span id="login-password-error" class="error">

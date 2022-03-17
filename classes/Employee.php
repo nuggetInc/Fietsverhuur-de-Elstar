@@ -8,11 +8,13 @@ class Employee
 {
     private string $name;
     private string $hash;
+    private Permission $permission;
 
-    private function __construct(string $name, string $hash)
+    private function __construct(string $name, string $hash, Permission $permission)
     {
         $this->name = $name;
         $this->hash = $hash;
+        $this->permission = $permission;
     }
 
     public function getName(): string
@@ -39,14 +41,15 @@ class Employee
     public static function fromName(string $name): ?Employee
     {
         $params = array(":name" => $name);
-        $sth = Database::getPDO()->prepare("SELECT `name`, `hash` FROM `employee` WHERE `name` = :name LIMIT 1;");
+        $sth = Database::getPDO()->prepare("SELECT `name`, `hash`, `permission` FROM `employee` WHERE `name` = :name LIMIT 1;");
         $sth->execute($params);
 
         if ($row = $sth->fetch())
         {
             $name = $row["name"];
             $hash = $row["hash"];
-            return new Employee($name, $hash);
+            $permission = Permission::from($row["permission"]);
+            return new Employee($name, $hash, $permission);
         }
 
         return null;
@@ -56,7 +59,7 @@ class Employee
     public static function like($match): array
     {
         $params = array(":match" => $match);
-        $sth = Database::getPDO()->prepare("SELECT `name`, `hash` FROM `employee` WHERE `name` LIKE :match;");
+        $sth = Database::getPDO()->prepare("SELECT `name`, `hash`, `permission` FROM `employee` WHERE `name` LIKE :match;");
         $sth->execute($params);
 
         $employees = array();
@@ -65,21 +68,28 @@ class Employee
         {
             $name = $row["name"];
             $hash = $row["hash"];
-            $employees[] = new Employee($name, $hash);
+            $permission = Permission::from($row["permission"]);
+            $employees[] = new Employee($name, $hash, $permission);
         }
 
         return $employees;
     }
 
     /** Register a new user */
-    public static function register(string $name, string $password): Employee
+    public static function register(string $name, string $password, Permission $permission): Employee
     {
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
-        $params = array(":name" => $name, ":hash" => $hash);
+        $params = array(":name" => $name, ":hash" => $hash, ":permission" => $permission->value);
         $sth = Database::getPDO()->prepare("INSERT INTO `employee` (`name`, `hash`) VALUES (:name, :hash);");
         $sth->execute($params);
 
-        return new Employee($name, $hash);
+        return new Employee($name, $hash, $permission);
     }
+}
+
+enum Permission: string
+{
+    case USER = "user";
+    case ADMIN = "admin";
 }

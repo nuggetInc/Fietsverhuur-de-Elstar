@@ -5,12 +5,13 @@ declare(strict_types=1);
 // Only run logic if form was submitted
 if (isset($_POST["register"]))
 {
+    $_SESSION["register-name"] =  $_POST["name"];
+    $_SESSION["register-permission"] =  $_POST["permission"];
+
     if (!isset($_POST["name"]) || $_POST["name"] === "")
     {
         $_SESSION["register-name-error"] = "Username can't be empty :(";
     }
-
-    $_SESSION["register-name"] =  $_POST["name"];
 
     if (!isset($_POST["password"]) || $_POST["password"] === "")
     {
@@ -20,6 +21,11 @@ if (isset($_POST["register"]))
     if (!isset($_POST["re-password"]) || $_POST["re-password"] === "")
     {
         $_SESSION["register-re-password-error"] = "Repeat Password can't be empty :(";
+    }
+
+    if (!isset($_POST["permission"]) || $_POST["permission"] === "")
+    {
+        $_SESSION["register-permission-error"] = "Permission can't be empty :(";
     }
 
     if (isset($_SESSION["login-name-error"]) || isset($_SESSION["login-password-error"]) || isset($_SESSION["login-re-password-error"]))
@@ -49,7 +55,9 @@ if (isset($_POST["register"]))
         exit;
     }
 
-    Employee::register($_POST["name"], $_POST["password"]);
+    Employee::register($_POST["name"], $_POST["password"], $_POST["permission"]);
+
+    unset($_SESSION["register-permission"]);
 
     header("Location: ?" . http_build_query($_GET));
     exit;
@@ -64,7 +72,7 @@ if (isset($_POST["register"]))
         <span class="error"><?= $_SESSION["register-error"] ?></span>
     <?php endif ?>
 
-    <label>
+    <label class="field">
         <header>
             <h3>Username</h3>
             <span id="register-name-error" class="error">
@@ -74,7 +82,7 @@ if (isset($_POST["register"]))
         <input id="register-name" oninput="validateRegisterUsername()" type="text" name="name" value="<?= htmlspecialchars($_SESSION["register-name"] ?? "") ?>" placeholder="Username" autofocus onfocus="this.select()" />
     </label>
 
-    <label>
+    <label class="field">
         <header>
             <h3>Password</h3>
             <span id="register-password-error" class="error">
@@ -84,7 +92,7 @@ if (isset($_POST["register"]))
         <input id="register-password" oninput="validateRegisterPassword()" type="password" name="password" placeholder="Password" />
     </label>
 
-    <label>
+    <label class="field">
         <header>
             <h3>Repeat Password</h3>
             <span id="register-re-password-error" class="error">
@@ -93,6 +101,25 @@ if (isset($_POST["register"]))
         </header>
         <input id="register-re-password" oninput="validateRegisterRepeatPassword()" type="password" name="re-password" placeholder="Repeat Password" />
     </label>
+
+    <div class="field">
+        <header>
+            <h3>Permission</h3>
+            <span id="register-permission-error" class="error">
+                <?= $_SESSION["register-permission-error"] ?? "" ?>
+            </span>
+        </header>
+        <div class="inline">
+            <label>
+                <input id="register-admin" type="radio" name="permission" value="user" checked />
+                User
+            </label>
+            <label>
+                <input id="register-admin" type="radio" name="permission" value="admin" />
+                Admin
+            </label>
+        </div>
+    </div>
 
     <input class="submit" type="submit" name="register" value="Register" />
 </form>
