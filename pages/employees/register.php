@@ -55,7 +55,7 @@ if (isset($_POST["register"]))
         exit;
     }
 
-    Employee::register($_POST["name"], $_POST["password"], $_POST["permission"]);
+    Employee::register($_POST["name"], $_POST["password"], Permission::from($_POST["permission"]));
 
     unset($_SESSION["register-permission"]);
 

@@ -81,7 +81,7 @@ class Employee
         $hash = password_hash($password, PASSWORD_DEFAULT);
 
         $params = array(":name" => $name, ":hash" => $hash, ":permission" => $permission->value);
-        $sth = Database::getPDO()->prepare("INSERT INTO `employee` (`name`, `hash`) VALUES (:name, :hash);");
+        $sth = Database::getPDO()->prepare("INSERT INTO `employee` (`name`, `hash`, `permission`) VALUES (:name, :hash, :permission);");
         $sth->execute($params);
 
         return new Employee($name, $hash, $permission);
