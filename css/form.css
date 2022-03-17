@@ -84,15 +84,17 @@ form input {
     background-color: var(--input-color);
 }
 
-/* form input[type="radio"] {
-    width: 2rem;
-    height: 2rem;
-} */
+form input[type="radio"] {
+    width: 1.5rem;
+    height: 1.5rem;
+}
 
 form input[type="submit"] {
     font-size: 1rem;
     background-color: var(--active-color);
 
+    cursor: pointer;
+    
     transition: filter .2s;
 }
 

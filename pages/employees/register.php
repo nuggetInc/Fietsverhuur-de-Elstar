@@ -65,7 +65,7 @@ if (isset($_POST["register"]))
 
 ?>
 <form method="POST" onsubmit="return validateRegisterForm()">
-    <header>Register</header>
+    <header>Registreren</header>
 
     <!-- Only create the element for storing the error if there is one -->
     <?php if (isset($_SESSION["register-error"])) : ?>
@@ -74,37 +74,37 @@ if (isset($_POST["register"]))
 
     <label class="field">
         <header>
-            <h3>Username</h3>
+            <h3>Gebruikersnaam</h3>
             <span id="register-name-error" class="error">
                 <?= $_SESSION["register-name-error"] ?? "" ?>
             </span>
         </header>
-        <input id="register-name" oninput="validateRegisterUsername()" type="text" name="name" value="<?= htmlspecialchars($_SESSION["register-name"] ?? "") ?>" placeholder="Username" autofocus onfocus="this.select()" />
+        <input id="register-name" oninput="validateRegisterUsername()" type="text" name="name" value="<?= htmlspecialchars($_SESSION["register-name"] ?? "") ?>" placeholder="Gebruikersnaam" autofocus onfocus="this.select()" />
     </label>
 
     <label class="field">
         <header>
-            <h3>Password</h3>
+            <h3>Wachtwoord</h3>
             <span id="register-password-error" class="error">
                 <?= $_SESSION["register-password-error"] ?? "" ?>
             </span>
         </header>
-        <input id="register-password" oninput="validateRegisterPassword()" type="password" name="password" placeholder="Password" />
+        <input id="register-password" oninput="validateRegisterPassword()" type="password" name="password" placeholder="Wachtwoord" />
     </label>
 
     <label class="field">
         <header>
-            <h3>Repeat Password</h3>
+            <h3>Herhaal Wachtwoor</h3>
             <span id="register-re-password-error" class="error">
                 <?= $_SESSION["register-re-password-error"] ?? "" ?>
             </span>
         </header>
-        <input id="register-re-password" oninput="validateRegisterRepeatPassword()" type="password" name="re-password" placeholder="Repeat Password" />
+        <input id="register-re-password" oninput="validateRegisterRepeatPassword()" type="password" name="re-password" placeholder="Herhaal Wachtwoord" />
     </label>
 
     <div class="field">
         <header>
-            <h3>Permission</h3>
+            <h3>Toestemming</h3>
             <span id="register-permission-error" class="error">
                 <?= $_SESSION["register-permission-error"] ?? "" ?>
             </span>
@@ -112,16 +112,16 @@ if (isset($_POST["register"]))
         <div class="inline">
             <label>
                 <input id="register-admin" type="radio" name="permission" value="user" checked />
-                User
+                Gebruiker
             </label>
             <label>
                 <input id="register-admin" type="radio" name="permission" value="admin" />
-                Admin
+                Administrator
             </label>
         </div>
     </div>
 
-    <input class="submit" type="submit" name="register" value="Register" />
+    <input class="submit" type="submit" name="register" value="Registreren" />
 </form>
 </div>
 <script type="text/javascript">
