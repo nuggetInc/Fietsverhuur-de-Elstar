@@ -49,7 +49,7 @@ if (isset($_POST["login"]))
 ?>
 <div class="page-wrapper">
     <form method="POST" onsubmit="return validateLoginForm()">
-        <header>Login</header>
+        <header>Inloggen</header>
 
         <!-- Only create the element for storing the error if there is one -->
         <?php if (isset($_SESSION["login-error"])) : ?>
@@ -58,25 +58,25 @@ if (isset($_POST["login"]))
 
         <label class="field">
             <header>
-                <h3>Username</h3>
+                <h3>Gebruikersnaam</h3>
                 <span id="login-name-error" class="error">
                     <?= $_SESSION["login-name-error"] ?? "" ?>
                 </span>
             </header>
-            <input id="login-name" oninput="validateLoginUsername()" type="text" name="name" value="<?= htmlspecialchars($_SESSION["login-name"] ?? "") ?>" placeholder="Username" autofocus onfocus="this.select()" />
+            <input id="login-name" oninput="validateLoginUsername()" type="text" name="name" value="<?= htmlspecialchars($_SESSION["login-name"] ?? "") ?>" placeholder="Gebruikersnaam" autofocus onfocus="this.select()" />
         </label>
 
         <label class="field">
             <header>
-                <h3>Password</h3>
+                <h3>Wachtwoord</h3>
                 <span id="login-password-error" class="error">
                     <?= $_SESSION["login-password-error"] ?? "" ?>
                 </span>
             </header>
-            <input id="login-password" oninput="validateLoginPassword()" type="password" name="password" placeholder="Password" />
+            <input id="login-password" oninput="validateLoginPassword()" type="password" name="password" placeholder="Wachtwoord" />
         </label>
 
-        <input class="submit" type="submit" name="login" value="Login" />
+        <input class="submit" type="submit" name="login" value="Inloggen" />
     </form>
 </div>
 <script type="text/javascript">

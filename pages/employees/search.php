@@ -12,16 +12,16 @@ if (isset($_POST["employees"]))
 
 ?>
 <form method="POST">
-    <header>Search</header>
+    <header>Zoeken</header>
 
     <label class="field">
         <header>
-            <h3>Search<h3>
+            <h3>Zoeken<h3>
         </header>
-        <input type="text" name="search" value="<?= htmlspecialchars($_SESSION["employee-search"] ?? "") ?>" placeholder="Search" autofocus onfocus="this.select()" />
+        <input type="text" name="search" value="<?= htmlspecialchars($_SESSION["employee-search"] ?? "") ?>" placeholder="Zoeken" autofocus onfocus="this.select()" />
     </label>
 
-    <input type="submit" name="employees" value="Search" />
+    <input type="submit" name="employees" value="Zoeken" />
 </form>
 <?php if (isset($_SESSION["employee-search"])) : ?>
     <?php foreach (Employee::like("%" . $_SESSION["employee-search"] . "%") as $employee) : ?>
