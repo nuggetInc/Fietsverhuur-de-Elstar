@@ -17,3 +17,20 @@ a {
     text-decoration: none;
     color: black;
 }
+.back-button {
+    font-size: 1rem;
+    background-color: var(--active-color);
+
+    transition: filter .2s;
+
+    margin: 0;
+    padding: 0 5rem;
+
+    height: 3rem;
+
+    border-radius: 1.5rem;
+    border-width: 0;
+}
+.back-button:hover {
+    filter: brightness(90%);
+}

@@ -6,7 +6,7 @@ require_once("Database.php");
 
 class Customer
 {
-    private string $customerId;
+    private int $customerId;
 
     public function setCustomerId($value) : void
     {

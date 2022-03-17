@@ -45,9 +45,6 @@ if (!isset($_SESSION["user"]))
         $weekCount = 1;
         $getWday = (getdate(strtotime($_GET["dayInfo"]))["wday"] == 0) ? 6 : getdate(strtotime($_GET["dayInfo"]))["wday"] - 1;
         $date = date("d-m-Y", strtotime($_GET["dayInfo"] . "-" . $getWday . " days"));
-        echo $getWday;
-        echo "<br>";
-        echo $date;
     }
 
     for($j = 0; $j < $weekCount; $j++) 
@@ -99,17 +96,32 @@ if (!isset($_SESSION["user"]))
             <th>Fiets</th>
             <th>Datum vanaf</th>
             <th>Datum Tot</th>
+            <th>Kinderzitje</th>
             <th>Status</th>
             <th>Opmerking</th>
         </tr>
         <?php 
+        $customer = new Customer();
         $bikeRental->setStatus(0);
+        $bikeRental->setDate(date("Y-m-d", strtotime($_GET["dayInfo"])));
+        $getDate = $bikeRental->getDate();
         
-        
-        
+        for($i = 0; $i < count($getDate); $i++)
+        {
+            echo "<tr>";
+            $customer->setCustomerId($getDate[$i]["customer_id"]);
+            for($j = 1; $j < (count($getDate[$i]) / 2); $j++)
+            {
+                if($j == 2) 
+                { echo "<td>" .  $customer->getCustomerById()["name"]  . "</td>"; }
+                else
+                { echo "<td>" . $getDate[$i][$j] . "</td>"; }
+               
+            }
+            echo "</tr>";
+        }
         ?>
-
-
     </table>
+    <button class="back-button"><a href="../">Terug</a></button>
 
 <?php endif ?>
