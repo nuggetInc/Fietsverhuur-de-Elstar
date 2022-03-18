@@ -19,6 +19,12 @@ class Customer
         $sth->execute($params);
         return $sth->fetch();
     }
+    public static function getAllCustomers() : array
+    {
+        $sth = Database::getPDO()->prepare("SELECT * FROM Customer");
+        $sth->execute();
+        return $sth->fetchAll();
+    }
 }
 
 ?>

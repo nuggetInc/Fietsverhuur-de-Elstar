@@ -28,9 +28,12 @@ a {
 
     height: 3rem;
 
+    cursor: pointer;
+
     border-radius: 1.5rem;
     border-width: 0;
 }
+
 .back-button:hover {
     filter: brightness(90%);
 }

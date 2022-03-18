@@ -11,6 +11,7 @@ if (!isset($_SESSION["user"]))
 ?>
 <div class="form-wrapper">
     <form action="" method="post">
+        <header>Zoek</header>
         <input type="text" name="searchBikeCount" placeholder="Zoek aantal fietsen">
         <input type="submit" value="Zoek">
     </form>
@@ -54,7 +55,7 @@ if (!isset($_SESSION["user"]))
         {
             $bikeRental->setDate(date("Y-m-d", strtotime($date)));
             $bikeRental->setStatus(1);
-            $bikeCountReserved = $totalBikeCount - count($bikeRental->getDate());
+            $bikeCountReserved = $totalBikeCount - count($bikeRental->getDate()) - 1;
 
             $color = "";
             if (isset($_POST["searchBikeCount"]) && $_POST["searchBikeCount"] > $bikeCountReserved)
@@ -78,7 +79,7 @@ if (!isset($_SESSION["user"]))
             <td style='background-color: {$color};'>
                 <p class='table-text'>{$date}</p>
                 <p class='table-text'> {$bikeCountReserved}/{$totalBikeCount}</p>
-                <button><a href='?dayInfo={$date}'>Reserveer</a></button>
+                <button><a href='?page=reserve&dayInfo={$date}'>Info</a></button>
             </td>";
             $date = date("d-m-Y", strtotime($date .  "+1 days"));
         }
@@ -112,16 +113,24 @@ if (!isset($_SESSION["user"]))
             $customer->setCustomerId($getDate[$i]["customer_id"]);
             for($j = 1; $j < (count($getDate[$i]) / 2); $j++)
             {
-                if($j == 2) 
-                { echo "<td>" .  $customer->getCustomerById()["name"]  . "</td>"; }
-                else
-                { echo "<td>" . $getDate[$i][$j] . "</td>"; }
+                $displayText = $getDate[$i][$j];
+                switch($j)
+                {
+                    case 2:
+                        $displayText = $customer->getCustomerById()["name"];  
+                    break;
+                    case 6:
+                        $displayText = $displayText == 0 ? "Nee" : "Ja";  
+                    break;
+                }
+
+                echo "<td>{$displayText}</td>";
                
             }
             echo "</tr>";
         }
         ?>
     </table>
-    <button class="back-button"><a href="../">Terug</a></button>
+    <a href="?page=reserve"><button class="back-button">Terug</button></a>
 
 <?php endif ?>
