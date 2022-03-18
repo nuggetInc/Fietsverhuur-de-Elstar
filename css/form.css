@@ -101,3 +101,6 @@ form input[type="submit"] {
 form input[type="submit"]:hover {
     filter: brightness(90%);
 }
+form input[type="checkbox"] {
+    width: 1.5rem;
+}
