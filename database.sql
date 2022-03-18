@@ -3,9 +3,15 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+<<<<<<< HEAD
 -- Generation Time: Mar 18, 2022 at 09:35 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
+=======
+-- Gegenereerd op: 18 mrt 2022 om 09:37
+-- Serverversie: 10.4.22-MariaDB
+-- PHP-versie: 8.1.2
+>>>>>>> origin/main
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -53,6 +59,7 @@ CREATE TABLE `bike` (
 --
 
 INSERT INTO `bike` (`framenumber`, `comment`) VALUES
+('', 'Niet bestaande fiets'),
 ('FR128421734', ''),
 ('FR141142734', ''),
 ('FR1431434', ''),
@@ -89,7 +96,12 @@ CREATE TABLE `bike_rental` (
 --
 
 INSERT INTO `bike_rental` (`id`, `employee_name`, `customer_id`, `framenumber`, `date_from`, `date_to`, `child_seat`, `status`, `comment`) VALUES
-(1, 'admin', 2, 'FR1431434', '2022-03-16', '2022-03-18', 0, 'reserved', '');
+(1, 'admin', 2, 'FR1431434', '2022-03-16', '2022-03-18', 0, 'reserved', ''),
+(2, 'admin', 2, 'FR143348734', '2022-03-16', '2022-03-18', 0, 'reserved', ''),
+(3, 'admin', 2, 'FR143341734', '2022-03-17', '2022-03-19', 0, 'reserved', ''),
+(4, 'admin', 2, 'FR143341734', '2022-03-17', '2022-03-19', 0, 'returned', ''),
+(5, 'admin', 3, 'FR141142734', '2022-03-18', '2022-03-21', 0, 'reserved', ''),
+(6, 'admin', 3, 'FR1438734', '2022-03-19', '2022-03-21', 0, 'reserved', '');
 
 -- --------------------------------------------------------
 
@@ -115,7 +127,8 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id`, `salutation`, `name`, `surname`, `email`, `phonenumber`, `postalcode`, `address`, `comment`) VALUES
-(2, 'Dhr.', 'Dustin', 'van de Veerboot', 'Veerboot@gmail.com', '0657830576', '5374NN', 'Papilaan 31', 'Houd vaar vla');
+(2, 'Dhr.', 'Dustin', 'van de Veerboot', 'Veerboot@gmail.com', '0657830576', '5374NN', 'Papilaan 31', 'Houd vaar vla'),
+(3, 'Dhr.', 'Henk', 'de Tank', 'Tanking@gmail.com', '0657830576', '5374NN', 'Papilaan 31', 'Houd vaar vla');
 
 -- --------------------------------------------------------
 
@@ -160,7 +173,7 @@ CREATE TABLE `page` (
 
 INSERT INTO `page` (`name`, `parent`, `display`, `order`, `permission`) VALUES
 ('developer', '', 'Ontwikkelaar', 4, 'admin'),
-('developer/pages', 'developer', 'Pagina\'s', 0, 'admin'),
+('developer/pages', 'developer', "Pagina\'s", 0, 'admin'),
 ('developer/pages/add', 'developer/pages', 'Toevoegen', 0, 'admin'),
 ('developer/pages/remove', 'developer/pages', 'Verwijderen', 1, 'admin'),
 ('employees', '', 'Werknemers', 2, 'admin'),

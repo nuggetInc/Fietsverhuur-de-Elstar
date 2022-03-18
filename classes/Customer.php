@@ -6,7 +6,7 @@ require_once("Database.php");
 
 class Customer
 {
-    private string $customerId;
+    private int $customerId;
 
     public function setCustomerId($value) : void
     {
@@ -18,6 +18,12 @@ class Customer
         $sth = Database::getPDO()->prepare("SELECT * FROM Customer WHERE id = :customerId");
         $sth->execute($params);
         return $sth->fetch();
+    }
+    public static function getAllCustomers() : array
+    {
+        $sth = Database::getPDO()->prepare("SELECT * FROM Customer");
+        $sth->execute();
+        return $sth->fetchAll();
     }
 }
 

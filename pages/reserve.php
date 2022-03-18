@@ -11,6 +11,7 @@ if (!isset($_SESSION["user"]))
 ?>
 <div class="form-wrapper">
     <form action="" method="post">
+        <header>Zoek</header>
         <input type="text" name="searchBikeCount" placeholder="Zoek aantal fietsen">
         <input type="submit" value="Zoek">
     </form>
@@ -45,9 +46,6 @@ if (!isset($_SESSION["user"]))
         $weekCount = 1;
         $getWday = (getdate(strtotime($_GET["dayInfo"]))["wday"] == 0) ? 6 : getdate(strtotime($_GET["dayInfo"]))["wday"] - 1;
         $date = date("d-m-Y", strtotime($_GET["dayInfo"] . "-" . $getWday . " days"));
-        echo $getWday;
-        echo "<br>";
-        echo $date;
     }
 
     for($j = 0; $j < $weekCount; $j++) 
@@ -57,7 +55,7 @@ if (!isset($_SESSION["user"]))
         {
             $bikeRental->setDate(date("Y-m-d", strtotime($date)));
             $bikeRental->setStatus(1);
-            $bikeCountReserved = $totalBikeCount - count($bikeRental->getDate());
+            $bikeCountReserved = $totalBikeCount - count($bikeRental->getDate()) - 1;
 
             $color = "";
             if (isset($_POST["searchBikeCount"]) && $_POST["searchBikeCount"] > $bikeCountReserved)
@@ -81,7 +79,7 @@ if (!isset($_SESSION["user"]))
             <td style='background-color: {$color};'>
                 <p class='table-text'>{$date}</p>
                 <p class='table-text'> {$bikeCountReserved}/{$totalBikeCount}</p>
-                <button><a href='?dayInfo={$date}'>Reserveer</a></button>
+                <button><a href='?page=reserve&dayInfo={$date}'>Info</a></button>
             </td>";
             $date = date("d-m-Y", strtotime($date .  "+1 days"));
         }
@@ -99,17 +97,40 @@ if (!isset($_SESSION["user"]))
             <th>Fiets</th>
             <th>Datum vanaf</th>
             <th>Datum Tot</th>
+            <th>Kinderzitje</th>
             <th>Status</th>
             <th>Opmerking</th>
         </tr>
         <?php 
+        $customer = new Customer();
         $bikeRental->setStatus(0);
+        $bikeRental->setDate(date("Y-m-d", strtotime($_GET["dayInfo"])));
+        $getDate = $bikeRental->getDate();
         
-        
-        
+        for($i = 0; $i < count($getDate); $i++)
+        {
+            echo "<tr>";
+            $customer->setCustomerId($getDate[$i]["customer_id"]);
+            for($j = 1; $j < (count($getDate[$i]) / 2); $j++)
+            {
+                $displayText = $getDate[$i][$j];
+                switch($j)
+                {
+                    case 2:
+                        $displayText = $customer->getCustomerById()["name"];  
+                    break;
+                    case 6:
+                        $displayText = $displayText == 0 ? "Nee" : "Ja";  
+                    break;
+                }
+
+                echo "<td>{$displayText}</td>";
+               
+            }
+            echo "</tr>";
+        }
         ?>
-
-
     </table>
+    <a href="?page=reserve"><button class="back-button">Terug</button></a>
 
 <?php endif ?>
