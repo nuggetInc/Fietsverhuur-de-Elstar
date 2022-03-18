@@ -121,7 +121,7 @@ if (isset($_POST["register"]))
         </div>
     </div>
 
-    <input class="submit" type="submit" name="register" value="Registreren" />
+    <input type="submit" name="register" value="Registreren" />
 </form>
 </div>
 <script type="text/javascript">

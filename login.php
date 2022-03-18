@@ -75,7 +75,7 @@ if (isset($_POST["login"]))
         <input id="login-password" oninput="validateLoginPassword()" type="password" name="password" placeholder="Wachtwoord" />
     </label>
 
-    <input class="submit" type="submit" name="login" value="Inloggen" />
+    <input type="submit" name="login" value="Inloggen" />
 </form>
 <script type="text/javascript">
     const nameInput = document.getElementById("login-name");
