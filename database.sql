@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2022 at 09:35 AM
+-- Generation Time: Mar 22, 2022 at 02:02 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -166,15 +166,17 @@ CREATE TABLE `page` (
 --
 
 INSERT INTO `page` (`name`, `parent`, `display`, `order`, `permission`) VALUES
-('developer', '', 'Ontwikkelaar', 4, 'admin'),
-('developer/pages', 'developer', "Pagina\'s", 0, 'admin'),
-('developer/pages/add', 'developer/pages', 'Toevoegen', 0, 'admin'),
-('developer/pages/remove', 'developer/pages', 'Verwijderen', 1, 'admin'),
-('employees', '', 'Werknemers', 2, 'admin'),
-('employees/register', 'employees', 'Registreren', 2, 'admin'),
-('employees/search', 'employees', 'Zoeken', 0, 'admin'),
-('logout', '', 'Uitloggen', 3, 'user'),
-('reserve', '', 'Reserveren', 0, 'user');
+('developer', '', 'Ontwikkelaar', 6, 'admin'),
+('developer/pages', 'developer', 'Pagina\'s', 3, 'admin'),
+('developer/pages/add', 'developer/pages', 'Toevoegen', 3, 'admin'),
+('developer/pages/remove', 'developer/pages', 'Verwijderen', 3, 'admin'),
+('employees', '', 'Werknemers', 4, 'admin'),
+('employees/register', 'employees', 'Registreren', 4, 'admin'),
+('employees/search', 'employees', 'Zoeken', 3, 'admin'),
+('logout', '', 'Uitloggen', 5, 'user'),
+('reserve', '', 'Reserveren', 1, 'user'),
+('reserve/create_reserve', 'reserve', 'Aanmaken', 2, 'user'),
+('reserve/reserve', 'reserve', 'Bekijken', 0, 'user');
 
 --
 -- Indexes for dumped tables
@@ -228,13 +230,13 @@ ALTER TABLE `page`
 -- AUTO_INCREMENT for table `bike_rental`
 --
 ALTER TABLE `bike_rental`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
