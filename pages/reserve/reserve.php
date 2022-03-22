@@ -26,7 +26,7 @@ declare(strict_types=1);
     </tr>
     <?php
 
-    $totalBikeCount = (new Bike)->getTotalBikeCount();
+    $totalBikeCount = Bike::getTotalBikeCount();
     $bikeRental = new BikeRental();
 
 
@@ -49,7 +49,7 @@ declare(strict_types=1);
         {
             $bikeRental->setDate(date("Y-m-d", strtotime($date)));
             $bikeRental->setStatus(1);
-            $bikeCountReserved = $totalBikeCount - count($bikeRental->getDate()) - 1;
+            $bikeCountReserved = $totalBikeCount - count($bikeRental->getDate());
 
             $color = "";
             if (isset($_POST["searchBikeCount"]) && $_POST["searchBikeCount"] > $bikeCountReserved)
