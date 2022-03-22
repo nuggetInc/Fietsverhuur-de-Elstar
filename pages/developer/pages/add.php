@@ -12,7 +12,7 @@ if (isset($_POST["add_page"]))
 
     Page::add($name, $parent, $display, $order, $permission);
 
-    header("Location: ?" . http_build_query($_GET));
+    header("Location: $uri");
     exit;
 }
 

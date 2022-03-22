@@ -31,7 +31,7 @@ if (isset($_POST["register"]))
     if (isset($_SESSION["login-name-error"]) || isset($_SESSION["login-password-error"]) || isset($_SESSION["login-re-password-error"]))
     {
         // Reload page to clear POST and stop further execution
-        header("Location: ?" . http_build_query($_GET));
+        header("Location: $uri");
         exit;
     }
 
@@ -41,7 +41,7 @@ if (isset($_POST["register"]))
         $_SESSION["register-password-error"] = "";
         $_SESSION["register-re-password-error"] = "";
 
-        header("Location: ?" . http_build_query($_GET));
+        header("Location: $uri");
         exit;
     }
 
@@ -51,7 +51,7 @@ if (isset($_POST["register"]))
     {
         $_SESSION["register-name-error"] = "Gebruiker bestaat al";
 
-        header("Location: ?" . http_build_query($_GET));
+        header("Location: $uri");
         exit;
     }
 
@@ -59,7 +59,7 @@ if (isset($_POST["register"]))
 
     unset($_SESSION["register-permission"]);
 
-    header("Location: ?" . http_build_query($_GET));
+    header("Location: $uri");
     exit;
 }
 

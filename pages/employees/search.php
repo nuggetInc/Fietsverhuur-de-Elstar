@@ -6,7 +6,7 @@ if (isset($_POST["employees"]))
 {
     $_SESSION["employee-search"] = $_POST["search"];
 
-    header("Location: ?" . http_build_query($_GET));
+    header("Location: $uri");
     exit;
 }
 

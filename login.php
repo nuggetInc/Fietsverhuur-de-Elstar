@@ -21,7 +21,7 @@ if (isset($_POST["login"]))
     if (isset($_SESSION["login-name-error"]) || isset($_SESSION["login-password-error"]))
     {
         // Reload page to clear POST and stop further execution
-        header("Location: ?" . http_build_query($_GET));
+        header("Location: $uri");
         exit;
     }
 
@@ -33,7 +33,7 @@ if (isset($_POST["login"]))
         unset($_SESSION["login-name"]);
 
         // Reload page with now logged in user
-        header("Location: ?" . http_build_query($_GET));
+        header("Location: $uri");
         exit;
     }
 
@@ -42,7 +42,7 @@ if (isset($_POST["login"]))
     $_SESSION["login-name-error"] =  "";
     $_SESSION["login-password-error"] = "";
 
-    header("Location: ?" . http_build_query($_GET));
+    header("Location: $uri");
     exit;
 }
 

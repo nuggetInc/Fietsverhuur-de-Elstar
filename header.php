@@ -3,7 +3,7 @@
 $current = $children[0];
 for ($i = 0; $i < count($children); $i++)
 {
-    if (str_starts_with($page, $children[$i]->getName()))
+    if (str_starts_with($uri, ROOT . $children[$i]->getName()))
     {
         $current = $children[$i];
 
@@ -18,18 +18,18 @@ for ($i = 0; $i < count($children); $i++)
             <?php $children = $child->getChildren(); ?>
             <?php if ($children) : ?>
                 <div class="folder">
-                    <a href="?page=<?= $child->getName() ?>">
+                    <a href="<?= ROOT . $child->getName() ?>">
                         <li class="current"><?= $child->getDisplay() ?></li>
                     </a>
                     <?php require("header.php"); ?>
                 </div>
             <?php else : ?>
-                <a href="?page=<?= $child->getName() ?>">
+                <a href="<?= ROOT . $child->getName() ?>">
                     <li class="current"><?= $child->getDisplay() ?></li>
                 </a>
             <?php endif ?>
         <?php else : ?>
-            <a href="?page=<?= $child->getName() ?>">
+            <a href="<?= ROOT . $child->getName() ?>">
                 <li><?= $child->getDisplay() ?></li>
             </a>
         <?php endif ?>
