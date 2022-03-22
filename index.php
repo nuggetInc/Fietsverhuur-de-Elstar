@@ -27,10 +27,14 @@ const ROOT = "/Fietsverhuur-de-Elstar/";
 </head>
 
 <body>
+    <?php
+
+    $uri = $_SERVER["REQUEST_URI"];
+
+    ?>
     <?php if (isset($_SESSION["user"])) : ?>
         <?php
 
-        $uri = $_SERVER["REQUEST_URI"];
         $children = Page::getRootChildren();
 
         ?>
