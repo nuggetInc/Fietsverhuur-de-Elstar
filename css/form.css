@@ -79,7 +79,7 @@ form input {
     height: 3rem;
 
     border-radius: 1.5rem;
-    border-width: 0;
+    border: none;
 
     background-color: var(--input-color);
 }
