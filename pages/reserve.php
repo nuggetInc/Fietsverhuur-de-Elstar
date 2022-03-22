@@ -2,12 +2,6 @@
 
 declare(strict_types=1);
 
-if (!isset($_SESSION["user"]))
-{
-    header("Location: ../");
-    exit;
-}
-
 ?>
 <div class="form-wrapper">
     <form action="" method="post">
@@ -41,17 +35,17 @@ if (!isset($_SESSION["user"]))
 
     $weekCount = 10;
 
-    if(isset($_GET["dayInfo"]))
+    if (isset($_GET["dayInfo"]))
     {
         $weekCount = 1;
         $getWday = (getdate(strtotime($_GET["dayInfo"]))["wday"] == 0) ? 6 : getdate(strtotime($_GET["dayInfo"]))["wday"] - 1;
         $date = date("d-m-Y", strtotime($_GET["dayInfo"] . "-" . $getWday . " days"));
     }
 
-    for($j = 0; $j < $weekCount; $j++) 
+    for ($j = 0; $j < $weekCount; $j++)
     {
         echo "<tr>";
-        for($i = 0; $i < 7; $i++) 
+        for ($i = 0; $i < 7; $i++)
         {
             $bikeRental->setDate(date("Y-m-d", strtotime($date)));
             $bikeRental->setStatus(1);
@@ -88,7 +82,7 @@ if (!isset($_SESSION["user"]))
     ?>
 </table>
 
-<?php if(isset($_GET["dayInfo"])) : ?>
+<?php if (isset($_GET["dayInfo"])) : ?>
 
     <table>
         <tr>
@@ -101,31 +95,30 @@ if (!isset($_SESSION["user"]))
             <th>Status</th>
             <th>Opmerking</th>
         </tr>
-        <?php 
+        <?php
         $customer = new Customer();
         $bikeRental->setStatus(0);
         $bikeRental->setDate(date("Y-m-d", strtotime($_GET["dayInfo"])));
         $getDate = $bikeRental->getDate();
-        
-        for($i = 0; $i < count($getDate); $i++)
+
+        for ($i = 0; $i < count($getDate); $i++)
         {
             echo "<tr>";
             $customer->setCustomerId($getDate[$i]["customer_id"]);
-            for($j = 1; $j < (count($getDate[$i]) / 2); $j++)
+            for ($j = 1; $j < (count($getDate[$i]) / 2); $j++)
             {
                 $displayText = $getDate[$i][$j];
-                switch($j)
+                switch ($j)
                 {
                     case 2:
-                        $displayText = $customer->getCustomerById()["name"];  
-                    break;
+                        $displayText = $customer->getCustomerById()["name"];
+                        break;
                     case 6:
-                        $displayText = $displayText == 0 ? "Nee" : "Ja";  
-                    break;
+                        $displayText = $displayText == 0 ? "Nee" : "Ja";
+                        break;
                 }
 
                 echo "<td>{$displayText}</td>";
-               
             }
             echo "</tr>";
         }

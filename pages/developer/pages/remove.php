@@ -6,7 +6,7 @@ if (isset($_POST["remove_page"]))
 {
     Page::remove($_POST["name"]);
 
-    header("Location: ?" . http_build_query($_GET));
+    header("Location: $uri");
     exit;
 }
 

@@ -11,16 +11,18 @@ require_once("classes/Customer.php");
 
 session_start();
 
+const ROOT = "/Fietsverhuur-de-Elstar/";
+
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/form.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/reserve.css">
-    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="<?= ROOT ?>css/style.css">
+    <link rel="stylesheet" href="<?= ROOT ?>css/form.css">
+    <link rel="stylesheet" href="<?= ROOT ?>css/header.css">
+    <link rel="stylesheet" href="<?= ROOT ?>css/reserve.css">
+    <link rel="stylesheet" href="<?= ROOT ?>css/search.css">
     <title>Fietsverhuur</title>
 </head>
 
@@ -28,7 +30,7 @@ session_start();
     <?php if (isset($_SESSION["user"])) : ?>
         <?php
 
-        $page = $_GET["page"] ?? "";
+        $uri = $_SERVER["REQUEST_URI"];
         $children = Page::getRootChildren();
 
         ?>
