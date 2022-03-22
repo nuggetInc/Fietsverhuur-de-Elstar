@@ -22,12 +22,13 @@ if (isset($_POST["customer"]) && is_numeric($_POST["customer"]))
 </form>
 <form>
     <label>Datum vanaf</label>
-    <input type="date" name="date_form">   
+    <input type="date" name="dateForm">   
     <label>Datum tot</label>
-    <input type="date" name="date_to">
+    <input type="date" name="dateTo">
+    <label>Aantal personen</label>
+    <input type="number" name="numberOfPeople" placeholder="Aantal personen">
     <div class="inline">
         <label>Kinderzitje:  <input type="checkbox" name="child_seat"></label>
-        
     </div>
     
         
