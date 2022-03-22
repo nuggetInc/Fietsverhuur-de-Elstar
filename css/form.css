@@ -104,3 +104,13 @@ form input[type="submit"]:hover {
 form input[type="checkbox"] {
     width: 1.5rem;
 }
+form textarea {
+    border: none;
+    min-width: 100%;
+    max-width: 100%;
+    min-height: 3rem;
+    max-height: 20rem;
+    border-radius: 1.5rem;
+    padding: 0.8rem;
+    box-sizing: border-box;
+}
