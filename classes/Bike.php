@@ -32,6 +32,20 @@ class Bike
         return $sth->rowCount();
     }
 
+    public static function getBike(string $framenumber): ?Bike
+    {
+        $params = array(":framenumber" => $framenumber);
+        $sth = Database::getPDO()->prepare("SELECT `framenumber`, `comment` FROM `bike` WHERE `framenumber` = :framenumber LIMIT 1;");
+        $sth->execute($params);
+
+        if ($row = $sth->fetch())
+        {
+            return new Bike($row["framenumber"], $row["comment"]);
+        }
+
+        return null;
+    }
+
     public static function getBikes(): array
     {
         $sth = Database::getPDO()->prepare("SELECT `framenumber`, `comment` FROM `bike` WHERE `framenumber` != '';");
@@ -45,5 +59,20 @@ class Bike
         }
 
         return $bikes;
+    }
+
+    public static function update(string $framenumber, string $comment)
+    {
+        $params = array(":framenumber" => $framenumber, "comment" => $comment);
+        $sth = Database::getPDO()->prepare("UPDATE `bike` SET `comment` = :comment WHERE `framenumber` = :framenumber;");
+        $sth->execute($params);
+    }
+
+    public static function create(string $framenumber, string $comment)
+    {
+        $params = array(":framenumber" => $framenumber, "comment" => $comment);
+        $sth = Database::getPDO()->prepare("UPDATE `bike` SET `comment` = :comment WHERE `framenumber` = :framenumber;");
+        $sth = Database::getPDO()->prepare("INSERT INTO `bike` (`framenumber`, `comment`) VALUES (:framenumber, :comment);");
+        $sth->execute($params);
     }
 }

@@ -1,5 +1,5 @@
 form {
-    margin: 0;
+    margin: 2rem 0;
     padding: 0;
 
     width: 20rem;
@@ -61,14 +61,14 @@ form .field > header {
     gap: 1rem;
 }
 
-form .field > header h3 {
+form .field h3 {
     margin: 0;
     padding: 0;
 
     white-space: nowrap;
 }
 
-form .field > header .error {
+form .field .error {
     white-space: nowrap;    
 }
 
@@ -101,9 +101,15 @@ form input[type="submit"] {
 form input[type="submit"]:hover {
     filter: brightness(90%);
 }
+
 form input[type="checkbox"] {
     width: 1.5rem;
 }
+
+form .visible {
+    display: block;
+}
+
 form textarea {
     border: none;
     min-width: 100%;

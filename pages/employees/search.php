@@ -10,6 +10,12 @@ if (isset($_POST["employees"]))
     exit;
 }
 
+$search = "%";
+if (isset($_SESSION["bike-search"]))
+{
+    $search .= $_SESSION["bike-search"] . "%";
+}
+
 ?>
 <form method="POST">
     <header>Zoeken</header>
@@ -23,20 +29,14 @@ if (isset($_POST["employees"]))
 
     <input type="submit" name="employees" value="Zoeken" />
 </form>
-<?php if (isset($_SESSION["employee-search"])) : ?>
-    <?php foreach (Employee::like("%" . $_SESSION["employee-search"] . "%") as $employee) : ?>
-        <p><?= $employee->getName() ?></p>
-    <?php endforeach ?>
-<?php else : ?>
-    <?php foreach (Employee::like("%") as $employee) : ?>
-        <div class="employee">
-            <header>
-                <h3><?= $employee->getName() ?></h3>
-                <span>[Permission]</span>
-            </header>
-        </div>
-    <?php endforeach ?>
-<?php endif ?>
+<?php foreach (Employee::like($search) as $employee) : ?>
+    <div class="employee">
+        <header>
+            <h3><?= $employee->getName() ?></h3>
+            <span>[Permission]</span>
+        </header>
+    </div>
+<?php endforeach ?>
 <?php
 
 unset($_SESSION["employee-search"]);

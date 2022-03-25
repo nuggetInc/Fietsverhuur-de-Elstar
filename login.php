@@ -9,9 +9,11 @@ if (isset($_POST["login"]))
     {
         $_SESSION["login-name-error"] = "Gebruikersnaam kan niet leeg zijn :(";
     }
-
-    // Save username value so we're able to restore it after a reload
-    $_SESSION["login-name"] =  $_POST["name"];
+    else
+    {
+        // Save username value so we're able to restore it after a reload
+        $_SESSION["login-name"] =  $_POST["name"];
+    }
 
     if (!isset($_POST["password"]) || $_POST["password"] === "")
     {
