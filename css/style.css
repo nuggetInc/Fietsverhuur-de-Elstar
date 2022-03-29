@@ -31,3 +31,9 @@ body {
 .error {
     color: var(--error-color);
 }
+
+footer {
+    color: gray;
+    text-align: center;
+    font-size: small;
+}

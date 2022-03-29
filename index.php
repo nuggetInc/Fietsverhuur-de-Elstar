@@ -53,6 +53,7 @@ const ROOT = "/Fietsverhuur-de-Elstar/";
             <?php require("login.php"); ?>
         </div>
     <?php endif ?>
+    <footer>Copyright © 2022 De Elstar. All rights reserved</footer>
 </body>
 
 </html>
