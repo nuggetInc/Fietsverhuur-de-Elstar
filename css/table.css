@@ -1,0 +1,28 @@
+table {
+    border: 2px black solid;
+    padding: 5px;
+}
+td, th {
+    padding: 10px;
+    border: 2px black solid; 
+    cursor: pointer;
+}
+.table-text {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+.weekday {
+    background-color: lightgray;
+}
+.weekend {
+    background-color: gray;
+}
+.dayfree {
+    background-color: green;
+}
+.dayfull {
+    background-color: darkred;
+}
+.dayselected {
+    background-color: lightyellow;
+}
