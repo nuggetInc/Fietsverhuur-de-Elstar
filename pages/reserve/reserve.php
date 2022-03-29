@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 $reserveTabel = new ReserverTable();
 $reserveTabel->setWeekCount(5);
-$reserveTabel->setButtonText("Info");
-$reserveTabel->setStartDate(date("d-m-Y"));
+// $reserveTabel->setStartDate(date("d-m-Y"));
 
 ?>
 <div class="form-wrapper">

@@ -8,9 +8,15 @@ class Customer
 {
     private int $customerId;
 
-    public function setCustomerId($value) : void
+    public function setCustomerId($value) : bool
     {
+        $params = array(":customerId"=> $value);
+        $sth = Database::getPDO()->prepare("SELECT * FROM Customer WHERE id = :customerId");
+        $sth->execute($params);
+
         $this->customerId = $value;
+        return $sth->rowCount() >= 1;
+        
     }
     public function getCustomerById() : array
     {

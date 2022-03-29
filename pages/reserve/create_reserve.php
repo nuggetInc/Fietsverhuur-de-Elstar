@@ -5,43 +5,40 @@ declare(strict_types=1);
 $customer = new Customer();
 $reserverTable = new ReserverTable();
 
-
+$_SESSION["customerError"] = false;
 if (isset($_POST["customerId"]))
 {
     if(is_numeric($_POST["customerId"]))
     { 
-        $customer->setCustomerId(intval($_POST["customerId"])); 
-        $_SESSION["displayCustomer"] =  $customer->getCustomerById()["name"] . " " . $customer->getCustomerById()["surname"];
+        if($customer->setCustomerId(intval($_POST["customerId"])))
+        {
+            $_SESSION["displayCustomer"] =  $customer->getCustomerById()["name"] . " " . $customer->getCustomerById()["surname"];
+        }
+        else
+        {
+            $_SESSION["customerError"] = true;
+        }
     }
+    
 }
 else
 {
     $_SESSION["displayCustomer"] = "";
+    $_SESSION["dates"] = "";
 }
+$datesAndPeopleBool = isset($_POST["numberOfPeople"]) && isset($_POST["dateFrom"]) && isset($_POST["dateTo"]);
 
-if(isset($_POST["numberOfPeople"]))
+if($datesAndPeopleBool)
 {
-    $reserverTable->setWeekCount(1);
-    if(!isset($_GET["weekFurther"]) || !isset($_GET["weekBack"]))
-    {
-        $reserverTable->setStartDate("05-04-2022");
-    }
-    else
-    {
-        $date = isset($_GET["weekFurther"]) 
-        ? date("d-m-Y", strtotime($_GET["weekFurther"] . "+7days")) 
-        : date("d-m-Y", strtotime($_GET["weekBack"] . "-7days"));
-
-        $reserverTable->setStartDate($date);
-        $_GET["weekFurther"] = $date;
-        $_GET["weekBack"] = $date;
-    }
-    
-    $reserverTable->setButtonText("Dag selecteren");
-    $reserverTable->setButtonLink("?page=create_reserve");
+    $_SESSION["dates"] = array("dateTo"=>$_POST["dateTo"], "dateFrom"=>$_POST["dateFrom"]);
     $_SESSION["numberOfPeople"] = $_POST["numberOfPeople"];
+    $reserverTable->setDates($_SESSION["dates"]);
+    $reserverTable->setWeekCount(2);
+    
+
 }
-//else {$_SESSION["numberOfPeople"] = "";}
+
+
 ?>
 
 
@@ -52,49 +49,22 @@ if(isset($_POST["numberOfPeople"]))
     <?php else: ?>
         <label>Klant id</label>
     <?php endif ?>
-    <input  type="text" name="customerId" value="<?= $_SESSION["displayCustomer"] ?>" placeholder="Klant id">
+    <input  type="text" name="customerId" value="<?= $_SESSION["displayCustomer"] ?>" placeholder="Klant id" required>
+        <?php if($_SESSION["customerError"]) : ?>
+        <p style="color: red">Klant bestaat niet</p>
+        <?php endif ?>
 
-    <?php if(isset($_POST["customerId"])) : ?>
+    <?php if(isset($_POST["customerId"]) && !$_SESSION["customerError"]) : ?>
         <label>Aantal personen/fietsen</label>
-        <input type="number" name="numberOfPeople" value="<?= $_SESSION["numberOfPeople"] ?>" placeholder="Aantal personen/fietsen ">
-    <?php endif ?>
-    <input type="submit">
-</form> 
-    <?php if(isset($_POST["numberOfPeople"])) : ?>
-        <?= $reserverTable->getTable(); ?>  
+        <input type="number" name="numberOfPeople" placeholder="Aantal personen/fietsen " required>
+        <label>Datum vanaf</label>
+        <input type="date" name="dateFrom" required>
+        <label>Datum tot</label>
+        <input type="date" name="dateTo" required>
     <?php endif ?>
     
-<script>
-    var clickCount = 1; 
-    var firstId;  
-    function selectTd(id, date) {
-        x = document.getElementById(id);
-        if(clickCount <= 2)
-        {
-           x.classList.add("dayselected");
-        }
-        if(clickCount > 1 && clickCount <= 3)
-        {
-            for(let i = parseInt(firstId.substr(2)); i < parseInt(id.substr(2)) + 1; i++) 
-            {
-                document.getElementById("td" + i).classList.add("dayselected");
-            }
-        }
-        if(x.classList.contains('dayselected') && clickCount > 2)
-        {
-            x.classList.remove('dayselected');
-        }
-        if(clickCount == 1){
-            firstId = id;
-        }
-        clickCount++;
-        console.log(x.style.backgroundColor);
-    }
-    function WeekBack() {
-        document.cookie = "changeWeek = test";
-    }
-    function WeekFuther() {
 
-    }
-</script>        
- 
+    <input type="submit">
+</form> 
+
+<?php if($datesAndPeopleBool) { echo $reserverTable->getTable(); } ?>
