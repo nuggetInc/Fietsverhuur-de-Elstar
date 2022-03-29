@@ -72,7 +72,7 @@ if (isset($_POST["create"]))
 
         ?>
         <?php if (isset($bike)) : ?>
-            <header>Update</header>
+            <header>Aanpassen</header>
         <?php else : ?>
             <header>Creëer</header>
         <?php endif ?>
@@ -88,7 +88,7 @@ if (isset($_POST["create"]))
         </label>
 
         <?php if (isset($bike)) : ?>
-            <input type="submit" name="update" value="Update" />
+            <input type="submit" name="update" value="Aanpassen" />
         <?php else : ?>
             <input type="submit" name="create" value="Creëer" />
         <?php endif ?>
