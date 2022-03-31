@@ -136,6 +136,20 @@ if (isset($_POST["register"]))
 
     /** @return {boolean} */
     function validateRegisterForm() {
+        if (nameInput.value === "") {
+            nameError.innerHTML = "Gebruikersnaam kan niet leeg zijn";
+        }
+
+        if (passwordInput.value === "") {
+            passwordError.innerHTML = "Wachtwoord kan niet leeg zijn";
+        }
+
+        if (repeatPasswordInput.value === "") {
+            repeatPasswordError.innerHTML = "Herhaal wachtwoord kan niet leeg zijn";
+        } else if (passwordInput.value !== repeatPasswordInput.value) {
+            repeatPasswordError.innerHTML = "Wachtwoorden zijn niet hetzelfde";
+        }
+
         return nameInput.value !== "" && passwordInput.value !== "" && repeatPasswordInput.value !== "" && passwordInput.value == repeatPasswordInput.value;
     }
 

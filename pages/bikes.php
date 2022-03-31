@@ -50,7 +50,7 @@ if (isset($_POST["create"]))
 }
 
 ?>
-<form method="POST">
+<form method="POST" onsubmit="return validateSearchForm()">
     <header>Zoeken</header>
 
     <label class="field">
@@ -94,6 +94,27 @@ if (isset($_POST["create"]))
         <?php endif ?>
     </form>
 <?php endif ?>
+<script type="text/javascript">
+    const framenumberInput = document.getElementById("framenumber");
+    const framenumberError = document.getElementById("framenumber-error");
+
+    function validateSearchForm() {
+        if (framenumberInput.value === "") {
+            framenumberError.innerHTML = "Framenummer kan niet leeg zijn";
+            return false;
+        }
+
+        return true;
+    }
+
+    function validateFramenumber() {
+        if (framenumberInput.value === "") {
+            framenumberError.innerHTML = "Framenummer kan niet leeg zijn";
+        } else {
+            framenumberError.innerHTML = "";
+        }
+    }
+</script>
 <?php
 
 unset($_SESSION["framenumber"]);
