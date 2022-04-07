@@ -111,11 +111,11 @@ if (isset($_POST["register"]))
         </header>
         <div class="inline">
             <label>
-                <input id="register-admin" type="radio" name="permission" value="user" checked />
+                <input type="radio" name="permission" value="user" checked />
                 Gebruiker
             </label>
             <label>
-                <input id="register-admin" type="radio" name="permission" value="admin" />
+                <input type="radio" name="permission" value="admin" />
                 Administrator
             </label>
         </div>
