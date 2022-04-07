@@ -19,7 +19,7 @@
     list-style: none;
 }
 
-#header .folder {
+#header .directory {
     display: flex;
     flex-direction: column;
     align-items: center;

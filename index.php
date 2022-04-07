@@ -23,10 +23,8 @@ const ROOT = "/Fietsverhuur-de-Elstar/";
     <link rel="stylesheet" href="<?= ROOT ?>css/form.css">
     <link rel="stylesheet" href="<?= ROOT ?>css/header.css">
     <link rel="stylesheet" href="<?= ROOT ?>css/reserve.css">
-    <link rel="stylesheet" href="<?= ROOT ?>css/search.css">
     <link rel="stylesheet" href="<?= ROOT ?>css/table.css">
     <link rel="stylesheet" href="<?= ROOT ?>css/employee.css">
-    <link rel="stylesheet" href="<?= ROOT ?>css/bikes.css">
     <title>Fietsverhuur</title>
 </head>
 

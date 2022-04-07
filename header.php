@@ -17,7 +17,7 @@ for ($i = 0; $i < count($children); $i++)
         <?php if ($child == $current) : ?>
             <?php $children = $child->getChildren(); ?>
             <?php if ($children) : ?>
-                <div class="folder">
+                <div class="directory">
                     <a href="<?= ROOT . $child->getName() ?>">
                         <li class="current"><?= $child->getDisplay() ?></li>
                     </a>

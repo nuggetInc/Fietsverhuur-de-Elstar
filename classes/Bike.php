@@ -61,6 +61,37 @@ class Bike
         return $bikes;
     }
 
+    public static function getFramenumbers(): array
+    {
+        $sth = Database::getPDO()->prepare("SELECT `framenumber` FROM `bike` WHERE `framenumber` != '';");
+        $sth->execute();
+
+        $framenumbers = array();
+
+        while ($row = $sth->fetch())
+        {
+            $framenumbers[] = $row["framenumber"];
+        }
+
+        return $framenumbers;
+    }
+
+    public static function getFramenumbersLike(string $match)
+    {
+        $params = array(":match" => $match);
+        $sth = Database::getPDO()->prepare("SELECT `framenumber` FROM `bike` WHERE `framenumber` != '' and `framenumber` LIKE :match;");
+        $sth->execute($params);
+
+        $framenumbers = array();
+
+        while ($row = $sth->fetch())
+        {
+            $framenumbers[] = $row["framenumber"];
+        }
+
+        return $framenumbers;
+    }
+
     public static function update(string $framenumber, string $comment)
     {
         $params = array(":framenumber" => $framenumber, "comment" => $comment);
