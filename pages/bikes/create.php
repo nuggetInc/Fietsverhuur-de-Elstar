@@ -12,11 +12,9 @@ if (isset($_POST["create"]))
         exit;
     }
 
-    $_SESSION["framenumber"] = $_POST["framenumber"];
-
     Bike::create($_POST["framenumber"], $_POST["comment"]);
 
-    header("Location: $uri/../search");
+    header("Location: $uri");
     exit;
 }
 
