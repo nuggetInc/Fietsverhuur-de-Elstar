@@ -107,7 +107,7 @@ if (count($customers) > 0)
             <header>
                 <h3>E-Mail</h3>
             </header>
-            <input type="text" name="email" value="<?= htmlspecialchars($customer->getEmail()) ?>" placeholder="E-Mail" />
+            <input type="email" name="email" value="<?= htmlspecialchars($customer->getEmail()) ?>" placeholder="E-Mail" />
         </label>
 
         <label class="field">

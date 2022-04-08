@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 if (isset($_POST["create"]))
 {
+    $_SESSION["salutation"] = $_POST["salutation"];
+    $_SESSION["name"] = $_POST["name"];
+    $_SESSION["surname"] = $_POST["surname"];
+    $_SESSION["email"] = $_POST["email"];
+    $_SESSION["phonenumber"] = $_POST["phonenumber"];
+    $_SESSION["postalcode"] = $_POST["postalcode"];
+
     if (@$_POST["salutation"] === "")
     {
         $_SESSION["salutation-error"] = "Salutation kan niet leeg zijn :(";
@@ -11,34 +18,22 @@ if (isset($_POST["create"]))
         header("Location: $uri");
         exit;
     }
-    $_SESSION["salutation"] = $_POST["salutation"];
 
     if (@$_POST["name"] === "")
     {
-        $_SESSION["name-error"] = "Name kan niet leeg zijn :(";
+        $_SESSION["name-error"] = "Naam kan niet leeg zijn :(";
 
         header("Location: $uri");
         exit;
     }
-    $_SESSION["name"] = $_POST["name"];
 
     if (@$_POST["surname"] === "")
     {
-        $_SESSION["surname-error"] = "Surname kan niet leeg zijn :(";
+        $_SESSION["surname-error"] = "Achternaam kan niet leeg zijn :(";
 
         header("Location: $uri");
         exit;
     }
-    $_SESSION["surname"] = $_POST["surname"];
-
-    if (@$_POST["email"] === "")
-    {
-        $_SESSION["email-error"] = "E-mail kan niet leeg zijn :(";
-
-        header("Location: $uri");
-        exit;
-    }
-    $_SESSION["email"] = $_POST["email"];
 
     if (@$_POST["phonenumber"] === "")
     {
@@ -47,7 +42,6 @@ if (isset($_POST["create"]))
         header("Location: $uri");
         exit;
     }
-    $_SESSION["phonenumber"] = $_POST["phonenumber"];
 
     if (@$_POST["postalcode"] === "")
     {
@@ -62,6 +56,7 @@ if (isset($_POST["create"]))
     unset($_SESSION["surname"]);
     unset($_SESSION["email"]);
     unset($_SESSION["phonenumber"]);
+    unset($_SESSION["postalcode"]);
 
     Customer::create($_POST["salutation"], $_POST["name"], $_POST["surname"], $_POST["email"], $_POST["phonenumber"], $_POST["postalcode"]);
 
@@ -76,68 +71,128 @@ if (isset($_POST["create"]))
     <label class="field">
         <header>
             <h3>Aanhef</h3>
+            <span id="salutation-error" class="error">
+                <?= $_SESSION["salutation-error"] ?? "" ?>
+            </span>
         </header>
-        <input type="text" name="salutation" value="<?= htmlspecialchars($_SESSION["salutation"] ?? "") ?>" placeholder="Aanhef" autofocus onfocus="this.select()" />
+        <input id="salutation" type="text" name="salutation" value="<?= htmlspecialchars($_SESSION["salutation"] ?? "") ?>" placeholder="Aanhef" oninput="validateSalutation()" autofocus onfocus="this.select()" />
     </label>
 
     <label class="field">
         <header>
             <h3>Voornaam</h3>
+            <span id="name-error" class="error">
+                <?= $_SESSION["name-error"] ?? "" ?>
+            </span>
         </header>
-        <input type="text" name="name" value="<?= htmlspecialchars($_SESSION["name"] ?? "") ?>" placeholder="Voornaam" onfocus="this.select()" />
+        <input id="name" type="text" name="name" value="<?= htmlspecialchars($_SESSION["name"] ?? "") ?>" placeholder="Voornaam" oninput="validateName()" onfocus="this.select()" />
     </label>
 
     <label class="field">
         <header>
             <h3>Achternaam</h3>
+            <span id="surname-error" class="error">
+                <?= $_SESSION["surname-error"] ?? "" ?>
+            </span>
         </header>
-        <input type="text" name="surname" value="<?= htmlspecialchars($_SESSION["surname"] ?? "") ?>" placeholder="Achternaam" onfocus="this.select()" />
+        <input id="surname" type="text" name="surname" value="<?= htmlspecialchars($_SESSION["surname"] ?? "") ?>" placeholder="Achternaam" oninput="validateSurname()" onfocus="this.select()" />
     </label>
 
     <label class="field">
         <header>
             <h3>E-Mail</h3>
         </header>
-        <input type="text" name="email" value="<?= htmlspecialchars($_SESSION["email"] ?? "") ?>" placeholder="E-Mail" onfocus="this.select()" />
+        <input type="email" name="email" value="<?= htmlspecialchars($_SESSION["email"] ?? "") ?>" placeholder="E-Mail" onfocus="this.select()" />
     </label>
 
     <label class="field">
         <header>
             <h3>Telefoonnummer</h3>
+            <span id="phonenumber-error" class="error">
+                <?= $_SESSION["phonenumber-error"] ?? "" ?>
+            </span>
         </header>
-        <input type="text" name="phonenumber" value="<?= htmlspecialchars($_SESSION["phonenumber"] ?? "") ?>" placeholder="Telefoonnummer" onfocus="this.select()" />
+        <input id="phonenumber" type="text" name="phonenumber" value="<?= htmlspecialchars($_SESSION["phonenumber"] ?? "") ?>" placeholder="Telefoonnummer" oninput="validatePhonenumber()" onfocus="this.select()" />
     </label>
 
     <label class="field">
         <header>
             <h3>Postcode</h3>
+            <span id="postalcode-error" class="error">
+                <?= $_SESSION["postalcode-error"] ?? "" ?>
+            </span>
         </header>
-        <input type="text" name="postalcode" value="<?= htmlspecialchars($_SESSION["postalcode"] ?? "") ?>" placeholder="Postcode" onfocus="this.select()" />
+        <input id="postalcode" type="text" name="postalcode" value="<?= htmlspecialchars($_SESSION["postalcode"] ?? "") ?>" placeholder="Postcode" oninput="validatePostalcode()" onfocus="this.select()" />
     </label>
 
     <input type="submit" name="create" value="Creëer" />
 </form>
-<!-- <script type="text/javascript">
-    const framenumberInput = document.getElementById("framenumber");
-    const framenumberError = document.getElementById("framenumber-error");
+<script type="text/javascript">
+    const salutationInput = document.getElementById("salutation");
+    const salutationError = document.getElementById("salutation-error");
+
+    const nameInput = document.getElementById("name");
+    const nameError = document.getElementById("name-error");
+
+    const surnameInput = document.getElementById("surname");
+    const surnameError = document.getElementById("surname-error");
+
+    const phonenumberInput = document.getElementById("phonenumber");
+    const phonenumberError = document.getElementById("phonenumber-error");
+
+    const postalcodeInput = document.getElementById("postalcode");
+    const postalcodeError = document.getElementById("postalcode-error");
 
     function validateCreateForm() {
-        if (framenumberInput.value === "") {
-            framenumberError.innerHTML = "Framenummer kan niet leeg zijn";
-            return false;
-        }
+        validateSalutation();
+        validateName();
+        validateSurname();
+        validatePhonenumber();
+        validatePostalcode();
 
-        return true;
+        return salutationInput.value !== "" && nameInput.value !== "" && surnameInput.value !== "" && phonenumberInput.value !== "" && postalcodeInput.value !== "";
     }
 
-    function validateFramenumber() {
-        if (framenumberInput.value === "") {
-            framenumberError.innerHTML = "Framenummer kan niet leeg zijn";
+    function validateSalutation() {
+        if (salutationInput.value === "") {
+            salutationError.innerHTML = "Salutation kan niet leeg zijn";
         } else {
-            framenumberError.innerHTML = "";
+            salutationError.innerHTML = "";
         }
     }
-</script> -->
+
+    function validateName() {
+        if (nameInput.value === "") {
+            nameError.innerHTML = "Name kan niet leeg zijn";
+        } else {
+            nameError.innerHTML = "";
+        }
+    }
+
+    function validateSurname() {
+        if (surnameInput.value === "") {
+            surnameError.innerHTML = "Surname kan niet leeg zijn";
+        } else {
+            surnameError.innerHTML = "";
+        }
+    }
+
+    function validatePhonenumber() {
+        if (phonenumberInput.value === "") {
+            phonenumberError.innerHTML = "Phonenumber kan niet leeg zijn";
+        } else {
+            phonenumberError.innerHTML = "";
+        }
+    }
+
+    function validatePostalcode() {
+        if (postalcodeInput.value === "") {
+            postalcodeError.innerHTML = "Postalcode kan niet leeg zijn";
+        } else {
+            postalcodeError.innerHTML = "";
+        }
+    }
+</script>
 <?php
 
 unset($_SESSION["salutation"]);
@@ -146,5 +201,11 @@ unset($_SESSION["surname"]);
 unset($_SESSION["email"]);
 unset($_SESSION["phonenumber"]);
 unset($_SESSION["postalcode"]);
+
+unset($_SESSION["salutation-error"]);
+unset($_SESSION["name-error"]);
+unset($_SESSION["surname-error"]);
+unset($_SESSION["phonenumber-error"]);
+unset($_SESSION["postalcode-error"]);
 
 ?>
