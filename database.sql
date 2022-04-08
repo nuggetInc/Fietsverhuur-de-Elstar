@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2022 at 02:02 PM
+-- Generation Time: Apr 08, 2022 at 10:23 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `fietsverhuur_de_elstar`
 --
-CREATE DATABASE IF NOT EXISTS `fietsverhuur_de_elstar` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `fietsverhuur_de_elstar`;
 
 -- --------------------------------------------------------
 
@@ -29,12 +27,45 @@ USE `fietsverhuur_de_elstar`;
 -- Table structure for table `action`
 --
 
-DROP TABLE IF EXISTS `action`;
 CREATE TABLE `action` (
   `employee_name` varchar(64) NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp(),
   `action` enum('Klantenpas aangemaakt','Klantenpas verwijderd','Klantenpas aangepast','Fiets verhuurd','Fiets naar reparatie','Factuur aangemaakt') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `action`
+--
+
+INSERT INTO `action` (`employee_name`, `date`, `action`) VALUES
+('test', '2022-04-02 10:56:21', ''),
+('test', '2022-04-02 10:56:44', ''),
+('test', '2022-04-02 10:56:53', ''),
+('test', '2022-04-02 10:57:00', ''),
+('test', '2022-04-02 10:57:04', ''),
+('test', '2022-04-02 10:57:11', ''),
+('test', '2022-04-02 10:57:18', ''),
+('test', '2022-04-02 10:57:20', ''),
+('test', '2022-04-02 10:57:22', ''),
+('test', '2022-04-02 10:57:24', ''),
+('test', '2022-04-02 10:57:27', ''),
+('test', '2022-04-02 10:57:29', ''),
+('test', '2022-04-02 10:57:31', ''),
+('test', '2022-04-02 10:57:33', ''),
+('test', '2022-04-02 10:57:35', ''),
+('test', '2022-04-02 10:57:36', ''),
+('test', '2022-04-02 10:57:38', ''),
+('test', '2022-04-02 10:57:40', ''),
+('test', '2022-04-02 10:57:42', ''),
+('test', '2022-04-02 10:57:43', ''),
+('test', '2022-04-02 10:57:45', ''),
+('test', '2022-04-02 10:57:47', ''),
+('test', '2022-04-02 10:57:49', ''),
+('test', '2022-04-02 10:57:50', ''),
+('test', '2022-04-02 10:57:58', ''),
+('test', '2022-04-02 10:58:01', ''),
+('test', '2022-04-02 10:58:03', ''),
+('test', '2022-04-02 10:58:04', '');
 
 -- --------------------------------------------------------
 
@@ -42,7 +73,6 @@ CREATE TABLE `action` (
 -- Table structure for table `bike`
 --
 
-DROP TABLE IF EXISTS `bike`;
 CREATE TABLE `bike` (
   `framenumber` varchar(30) NOT NULL,
   `comment` text NOT NULL
@@ -54,9 +84,9 @@ CREATE TABLE `bike` (
 
 INSERT INTO `bike` (`framenumber`, `comment`) VALUES
 ('', 'Niet bestaande fiets'),
-('FR128421734', ''),
+('FR128421734', 'trtu\r\n\r\n\r\n'),
 ('FR141142734', ''),
-('FR1431434', ''),
+('FR1431434', 'w'),
 ('FR143341734', ''),
 ('FR143348734', ''),
 ('FR143371344', ''),
@@ -64,7 +94,7 @@ INSERT INTO `bike` (`framenumber`, `comment`) VALUES
 ('FR14381214734', ''),
 ('FR1438423734', ''),
 ('FR143843734', ''),
-('FR1438734', '');
+('FR1438734', 'sakfdhkuyoredufigjfdkgdutuieyti8erituritiudytuieriutriuieuugfuiudgufgiufdgiudughdufghuidf\r\n');
 
 -- --------------------------------------------------------
 
@@ -72,7 +102,6 @@ INSERT INTO `bike` (`framenumber`, `comment`) VALUES
 -- Table structure for table `bike_rental`
 --
 
-DROP TABLE IF EXISTS `bike_rental`;
 CREATE TABLE `bike_rental` (
   `id` int(11) NOT NULL,
   `employee_name` varchar(64) NOT NULL,
@@ -103,7 +132,6 @@ INSERT INTO `bike_rental` (`id`, `employee_name`, `customer_id`, `framenumber`, 
 -- Table structure for table `customer`
 --
 
-DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
   `id` int(11) NOT NULL,
   `salutation` varchar(20) NOT NULL,
@@ -122,7 +150,8 @@ CREATE TABLE `customer` (
 
 INSERT INTO `customer` (`id`, `salutation`, `name`, `surname`, `email`, `phonenumber`, `postalcode`, `address`, `comment`) VALUES
 (2, 'Dhr.', 'Dustin', 'van de Veerboot', 'Veerboot@gmail.com', '0657830576', '5374NN', 'Papilaan 31', 'Houd vaar vla'),
-(3, 'Dhr.', 'Henk', 'de Tank', 'Tanking@gmail.com', '0657830576', '5374NN', 'Papilaan 31', 'Houd vaar vla');
+(3, 'Dhr.', 'Henk', 'de Tank', 'Tanking@gmail.com', '0657830576', '5374NN', 'Papilaan 31', 'Houd vaar vla'),
+(4, 'Dhr.', 'Justin', 'van de Veerbal', 'Veerbal@gmail.com', '0657830576', '1234AB', 'Papilaan 31', 'Houd vaar pudding');
 
 -- --------------------------------------------------------
 
@@ -130,7 +159,6 @@ INSERT INTO `customer` (`id`, `salutation`, `name`, `surname`, `email`, `phonenu
 -- Table structure for table `employee`
 --
 
-DROP TABLE IF EXISTS `employee`;
 CREATE TABLE `employee` (
   `name` varchar(64) NOT NULL,
   `hash` varchar(100) NOT NULL,
@@ -142,9 +170,12 @@ CREATE TABLE `employee` (
 --
 
 INSERT INTO `employee` (`name`, `hash`, `permission`) VALUES
+('abc', '$2y$10$ZooFlF4uClS1OiXYExjTYO.sXAWPwFm5YxBUmHJWtu199fCK5mzIC', 'user'),
 ('admin', '$2y$10$syhj07sBklR8l7ZupaeAn..Vs9gDsArAutTtLDWxgEQzfoQcjSmmW', 'admin'),
 ('test', '$2y$10$t1Yq.ROKddW1UtI6MiUnC.Om3Lzumr/LjOzfxEPpxHTIOxGx.JOqO', 'user'),
-('test2', '$2y$10$hGaBYgWhoneOVkuz7vwQzu/SvP/AM6MTwcFtHP2Ny0ieUC8WtzIKa', 'admin');
+('test2', '$2y$10$hGaBYgWhoneOVkuz7vwQzu/SvP/AM6MTwcFtHP2Ny0ieUC8WtzIKa', 'admin'),
+('testt', '$2y$10$2IhtMoO1HMJoccv7hzFjpO1BWqXmgPZPIpBsUKChQlx74UENtJupq', 'user'),
+('user', '$2y$10$b3aU.oswV7EqMSvOk3F00u59fseZp6mT1PAKFrUR8kI8a.ve0Ll.a', 'user');
 
 -- --------------------------------------------------------
 
@@ -152,7 +183,6 @@ INSERT INTO `employee` (`name`, `hash`, `permission`) VALUES
 -- Table structure for table `page`
 --
 
-DROP TABLE IF EXISTS `page`;
 CREATE TABLE `page` (
   `name` varchar(64) NOT NULL,
   `parent` varchar(64) NOT NULL,
@@ -166,17 +196,22 @@ CREATE TABLE `page` (
 --
 
 INSERT INTO `page` (`name`, `parent`, `display`, `order`, `permission`) VALUES
-('developer', '', 'Ontwikkelaar', 6, 'admin'),
-('developer/pages', 'developer', 'Pagina\'s', 3, 'admin'),
-('developer/pages/add', 'developer/pages', 'Toevoegen', 3, 'admin'),
-('developer/pages/remove', 'developer/pages', 'Verwijderen', 3, 'admin'),
-('employees', '', 'Werknemers', 4, 'admin'),
-('employees/register', 'employees', 'Registreren', 4, 'admin'),
-('employees/search', 'employees', 'Zoeken', 3, 'admin'),
-('logout', '', 'Uitloggen', 5, 'user'),
-('reserve', '', 'Reserveren', 1, 'user'),
-('reserve/create_reserve', 'reserve', 'Aanmaken', 2, 'user'),
-('reserve/reserve', 'reserve', 'Bekijken', 0, 'user');
+('bikes', '', 'Fietsen', 6, 'user'),
+('bikes/create', 'bikes', 'Creëer', 2, 'admin'),
+('bikes/search', 'bikes', 'Zoeken', 1, 'admin'),
+('customers', '', 'Klanten', 3, 'user'),
+('customers/search', 'customers', 'Zoeken', 0, 'user'),
+('developer', '', 'Ontwikkelaar', 11, 'admin'),
+('developer/pages', 'developer', 'Pagina\'s', 8, 'admin'),
+('developer/pages/add', 'developer/pages', 'Toevoegen', 8, 'admin'),
+('developer/pages/remove', 'developer/pages', 'Verwijderen', 8, 'admin'),
+('employees', '', 'Werknemers', 9, 'admin'),
+('employees/register', 'employees', 'Registreren', 9, 'admin'),
+('employees/search', 'employees', 'Zoeken', 8, 'admin'),
+('logout', '', 'Uitloggen', 10, 'user'),
+('reserve', '', 'Reserveren', 5, 'user'),
+('reserve/create_reserve', 'reserve', 'Aanmaken', 7, 'user'),
+('reserve/reserve', 'reserve', 'Bekijken', 4, 'user');
 
 --
 -- Indexes for dumped tables
@@ -236,17 +271,11 @@ ALTER TABLE `bike_rental`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `action`
---
-ALTER TABLE `action`
-  ADD CONSTRAINT `action_ibfk_1` FOREIGN KEY (`employee_name`) REFERENCES `employee` (`name`);
 
 --
 -- Constraints for table `bike_rental`
