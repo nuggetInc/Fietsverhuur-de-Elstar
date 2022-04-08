@@ -88,6 +88,14 @@ if (isset($_POST["login"]))
 
     /** @return {boolean} */
     function validateLoginForm() {
+        if (nameInput.value === "") {
+            nameError.innerHTML = "Gebruikersnaam kan niet leeg zijn";
+        }
+
+        if (passwordInput.value === "") {
+            passwordError.innerHTML = "Wachtwoord kan niet leeg zijn";
+        }
+
         return nameInput.value !== "" && passwordInput.value !== "";
     }
 
