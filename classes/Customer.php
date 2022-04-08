@@ -6,7 +6,7 @@ require_once("Database.php");
 
 class Customer
 {
-    private int    $id;
+    private int $id;
     private string $salutation;
     private string $name;
     private string $surname;
