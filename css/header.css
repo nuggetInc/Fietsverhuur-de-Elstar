@@ -3,8 +3,8 @@
     padding: .5rem 1rem 1rem 1rem;
 
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 #header ul {
@@ -15,14 +15,6 @@
     flex-direction: row;
     align-items: flex-start;
     gap: 1rem;
-
-    list-style: none;
-}
-
-#header .directory {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 
     list-style: none;
 }

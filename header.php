@@ -15,19 +15,9 @@ for ($i = 0; $i < count($children); $i++)
 <ul>
     <?php foreach ($children as $child) : ?>
         <?php if ($child == $current) : ?>
-            <?php $children = $child->getChildren(); ?>
-            <?php if ($children) : ?>
-                <div class="directory">
-                    <a href="<?= ROOT . $child->getName() ?>">
-                        <li class="current"><?= $child->getDisplay() ?></li>
-                    </a>
-                    <?php require("header.php"); ?>
-                </div>
-            <?php else : ?>
-                <a href="<?= ROOT . $child->getName() ?>">
-                    <li class="current"><?= $child->getDisplay() ?></li>
-                </a>
-            <?php endif ?>
+            <a href="<?= ROOT . $child->getName() ?>">
+                <li class="current"><?= $child->getDisplay() ?></li>
+            </a>
         <?php else : ?>
             <a href="<?= ROOT . $child->getName() ?>">
                 <li><?= $child->getDisplay() ?></li>
@@ -35,3 +25,9 @@ for ($i = 0; $i < count($children); $i++)
         <?php endif ?>
     <?php endforeach ?>
 </ul>
+<?php
+
+if ($children = $current->getChildren())
+    require("header.php");
+
+?>
