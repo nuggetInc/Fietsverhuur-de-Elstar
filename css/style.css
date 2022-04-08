@@ -33,6 +33,9 @@ body {
 }
 
 footer {
+    margin-top: 1rem;
+    margin-bottom: .2rem;
+
     color: gray;
     text-align: center;
     font-size: small;
