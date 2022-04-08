@@ -2,7 +2,6 @@
 
 declare(strict_types=1);
 
-$customer = new Customer();
 $reserverTable = new ReserverTable();
 
 $datesAndPeopleBool = false;
@@ -12,9 +11,9 @@ if (isset($_POST["customerId"]))
 {
     if(is_numeric($_POST["customerId"]))
     { 
-        if($customer->setCustomerId(intval($_POST["customerId"])))
+        if($customer = Customer::getcustomer(intval($_POST["customerId"])))
         {
-            $_SESSION["displayCustomer"] =  $customer->getCustomerById()["name"] . " " . $customer->getCustomerById()["surname"];
+            $_SESSION["displayCustomer"] =  $customer->getName() . " " . $customer->getSurname();
             $_SESSION["customerId"] = $_POST["customerId"];   
         }
         else

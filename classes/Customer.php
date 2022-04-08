@@ -25,16 +25,6 @@ class Customer
         $this->postalcode = $postalcode;
     }
 
-    public function setCustomerId($value): bool
-    {
-        $params = array(":customerId" => $value);
-        $sth = Database::getPDO()->prepare("SELECT * FROM Customer WHERE id = :customerId");
-        $sth->execute($params);
-
-        $this->customerId = $value;
-        return $sth->rowCount() >= 1;
-    }
-
     public function getId(): int
     {
         return $this->id;
@@ -73,14 +63,6 @@ class Customer
     public function getPostalcode(): string
     {
         return $this->postalcode;
-    }
-
-    public function getCustomerById(): array
-    {
-        $params = array(":customerId" => $this->customerId);
-        $sth = Database::getPDO()->prepare("SELECT * FROM Customer WHERE id = :customerId");
-        $sth->execute($params);
-        return $sth->fetch();
     }
 
     public static function getCustomer(int $id): ?Customer

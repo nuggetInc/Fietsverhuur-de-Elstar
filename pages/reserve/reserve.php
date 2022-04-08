@@ -32,7 +32,7 @@ $reserveTabel->setWeekCount(4);
             <th>Opmerking</th>
         </tr>
         <?php
-        $customer = new Customer();
+        
         $bikeRental = new BikeRental();
         $bikeRental->setStatus(0);
         $bikeRental->setDate(date("Y-m-d", strtotime($_GET["dayInfo"])));
@@ -41,14 +41,14 @@ $reserveTabel->setWeekCount(4);
         for ($i = 0; $i < count($getDate); $i++)
         {
             echo "<tr>";
-            $customer->setCustomerId($getDate[$i]["customer_id"]);
             for ($j = 1; $j < (count($getDate[$i]) / 2); $j++)
             {
+                
                 $displayText = $getDate[$i][$j];
                 switch ($j)
                 {
                     case 2:
-                        $displayText = $customer->getCustomerById()["name"];
+                        $displayText = Customer::getcustomer($getDate[$i][$j])->getName();
                         break;
                     case 6:
                         $displayText = $displayText == 0 ? "Nee" : "Ja";
