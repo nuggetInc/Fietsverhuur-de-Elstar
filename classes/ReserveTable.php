@@ -15,6 +15,7 @@ class ReserverTable
     {
         $this->bikeRental = new BikeRental();
         $this->totalBikeCount = Bike::getTotalBikeCount();
+
         
     }
 
@@ -33,7 +34,7 @@ class ReserverTable
             }
             else
             {
-                $this->weekCount = 1;
+                $this->weekCount = 2;
             }
         }
         else
@@ -47,6 +48,11 @@ class ReserverTable
     }
     public function getTable()
     {
+        if(!isset($this->dates))
+        {
+            $this->dates = array('dateFrom'=>date('d-m-Y'));
+        }
+
         $getdate_wday = (getdate(strtotime($this->dates["dateFrom"]))["wday"] == 0) ? 6 : getdate(strtotime($this->dates["dateFrom"]))["wday"] - 1;
         $formatDate = date("d-m-Y", strtotime($this->dates["dateFrom"]));
         $date = date("d-m-Y", strtotime($formatDate . "-". $getdate_wday . " days"));
@@ -91,7 +97,7 @@ class ReserverTable
                     $class = "weekday";
                 }
                 $table.= "
-                <td id='td{$trId}' onclick='selectTd(\"td{$trId}\", \"{$date}\")' class='{$class}'>
+                <td onclick='location.href=\"Fietsverhuur-de-Elstar/reserve/reserve?dayInfo={$date}\"' class='{$class}'>
                     <p class='table-text'>{$date}</p>
                     <p class='table-text'> {$bikeCountReserved}/{$this->totalBikeCount}</p>
                 </td>";
