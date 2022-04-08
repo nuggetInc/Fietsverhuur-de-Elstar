@@ -5,7 +5,7 @@ declare(strict_types=1);
 class ReserverTable 
 {
     private int $weekCount;
-    private string $startDate;
+    private array $dates;
     private $bikeRental;
     private int $totalBikeCount;
     private string $buttonText;
@@ -15,29 +15,46 @@ class ReserverTable
     {
         $this->bikeRental = new BikeRental();
         $this->totalBikeCount = Bike::getTotalBikeCount();
+
+        
     }
 
     public function setWeekCount($value)
     {
         $this->weekCount = $value;
+
+        if(isset($this->dates))
+        {
+            $dateToYearDay = getdate(strtotime($this->dates["dateTo"]))["yday"] / 7;
+            $dateFromYearDay = getdate(strtotime($this->dates["dateFrom"]))["yday"] / 7;
+            $weekDiff =  $dateToYearDay - $dateFromYearDay;
+            if($weekDiff > 1)
+            {
+                $this->weekCount = intval(round($weekDiff + 1, PHP_ROUND_HALF_DOWN));
+            }
+            else
+            {
+                $this->weekCount = 2;
+            }
+        }
+        else
+        {
+            $this->weekCount = $value;
+        }
     }
-    public function setStartDate($value)
+    public function setDates($value)
     {
-        $this->startDate = $value;
+        $this->dates = $value;
     }
-    public function setButtonText($value)
-    {
-        $this->buttonText = $value;
-    }
-    public function setButtonLink($value)
-    {
-        $this->buttonLink = $value;
-    }
-     
     public function getTable()
     {
-        $getdate_wday = (getdate(strtotime($this->startDate))["wday"] == 0) ? 6 : getdate(strtotime($this->startDate))["wday"] - 1;
-        $formatDate = date("d-m-Y", strtotime($this->startDate));
+        if(!isset($this->dates))
+        {
+            $this->dates = array('dateFrom'=>date('d-m-Y'));
+        }
+
+        $getdate_wday = (getdate(strtotime($this->dates["dateFrom"]))["wday"] == 0) ? 6 : getdate(strtotime($this->dates["dateFrom"]))["wday"] - 1;
+        $formatDate = date("d-m-Y", strtotime($this->dates["dateFrom"]));
         $date = date("d-m-Y", strtotime($formatDate . "-". $getdate_wday . " days"));
         $trId = 0;
 
@@ -80,7 +97,7 @@ class ReserverTable
                     $class = "weekday";
                 }
                 $table.= "
-                <td id='td{$trId}' onclick='selectTd(\"td{$trId}\", \"{$date}\")' class='{$class}'>
+                <td onclick='location.href=\"Fietsverhuur-de-Elstar/reserve/reserve?dayInfo={$date}\"' class='{$class}'>
                     <p class='table-text'>{$date}</p>
                     <p class='table-text'> {$bikeCountReserved}/{$this->totalBikeCount}</p>
                 </td>";

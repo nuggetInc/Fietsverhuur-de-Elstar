@@ -5,96 +5,126 @@ declare(strict_types=1);
 $customer = new Customer();
 $reserverTable = new ReserverTable();
 
+$datesAndPeopleBool = false;
 
+$_SESSION["customerError"] = false;
 if (isset($_POST["customerId"]))
 {
     if(is_numeric($_POST["customerId"]))
     { 
-        $customer->setCustomerId(intval($_POST["customerId"])); 
-        $_SESSION["displayCustomer"] =  $customer->getCustomerById()["name"] . " " . $customer->getCustomerById()["surname"];
+        if($customer->setCustomerId(intval($_POST["customerId"])))
+        {
+            $_SESSION["displayCustomer"] =  $customer->getCustomerById()["name"] . " " . $customer->getCustomerById()["surname"];
+            $_SESSION["customerId"] = $_POST["customerId"];   
+        }
+        else
+        {
+            $_SESSION["customerError"] = true;
+        }
     }
+    $datesAndPeopleBool = isset($_POST["numberOfPeople"]) && isset($_POST["dateFrom"]) && isset($_POST["dateTo"]);
 }
 else
 {
     $_SESSION["displayCustomer"] = "";
+    $_SESSION["dates"] = "";
 }
 
-if(isset($_POST["numberOfPeople"]))
+
+if($datesAndPeopleBool)
 {
-    $reserverTable->setWeekCount(1);
-    if(!isset($_GET["weekFurther"]) || !isset($_GET["weekBack"]))
-    {
-        $reserverTable->setStartDate("05-04-2022");
-    }
-    else
-    {
-        $date = isset($_GET["weekFurther"]) 
-        ? date("d-m-Y", strtotime($_GET["weekFurther"] . "+7days")) 
-        : date("d-m-Y", strtotime($_GET["weekBack"] . "-7days"));
-
-        $reserverTable->setStartDate($date);
-        $_GET["weekFurther"] = $date;
-        $_GET["weekBack"] = $date;
-    }
-    
-    $reserverTable->setButtonText("Dag selecteren");
-    $reserverTable->setButtonLink("?page=create_reserve");
+    $_SESSION["dates"] = array("dateTo"=>$_POST["dateTo"], "dateFrom"=>$_POST["dateFrom"]);
     $_SESSION["numberOfPeople"] = $_POST["numberOfPeople"];
+    $reserverTable->setDates($_SESSION["dates"]);
+    $reserverTable->setWeekCount(2);
+    
+
 }
-//else {$_SESSION["numberOfPeople"] = "";}
+else
+{
+    $_SESSION["numberOfPeople"] = "";
+    $_SESSION["dates"] = array("dateTo"=>"", "dateFrom"=>"");
+}
+
+
+if(isset($_POST["createReserve"]) && !isset($_SESSION["succes"]))
+{
+    echo $_POST["createReserve"];
+
+    $bikeRental = new BikeRental();
+    $bikeRental->setDates($_SESSION["dates"]);
+    $bikeRental->setCustomerId($_SESSION["customerId"]);
+    $bikeRental->setNumberOfPeople($_SESSION["numberOfPeople"]);
+
+    $bikeRental->setChildSeat(isset($_POST["childSeat"]) ? 1 : 0);
+    $bikeRental->setComment($_POST["comment"]);
+    $bikeRental->addReserve($_SESSION["user"]->getName());
+
+
+    //new page----------------------------------------------
+    $_SESSION["succes"] = true;
+}
+
+if(isset($_SESSION["succes"]))
+{
+    unset($_SESSION["succes"]); 
+    $_POST["createReserve"] = null;
+    $_POST["customerId"] = null;
+    $datesAndPeopleBool = false;
+}
 ?>
 
+<?php if(isset($_SESSION["succes"])) : ?>
+    <h3 style="color: green;">Reservering voor <?= $_SESSION["numberOfPeople"] ?> personen is aan gemaakt. <br>
+    van: <?= $_SESSION["dates"]["dateFrom"]?> tot: <?= $_SESSION["dates"]["dateTo"]?></h3>
+<?php endif ?>
 
 <form action="" method="POST">
     <header>Nieuwe reservering</header> 
-    <?php if(isset($_POST["customerId"])) : ?>
-        <label>Klant</label>
+    <label class="field">
+        <?php if(isset($_POST["customerId"])) : ?>
+            <header><h3>Klant</h3></header>
+        <?php else: ?>
+            <header><h3>Klant id</h3></header>
+        <?php endif ?>
+        <input  type="text" name="customerId" value="<?= $_SESSION["displayCustomer"] ?>" placeholder="Klant id" required>
+    </label>
+        <?php if($_SESSION["customerError"]) : ?>
+        <p style="color: red">Klant bestaat niet</p>
+        <?php endif ?>
+
+    <?php if(isset($_POST["customerId"]) && !$_SESSION["customerError"]) : ?>
+        <label  class="field">
+            <header><h3>Aantal personen/fietsen</h3></header>
+            <input type="number" name="numberOfPeople" value="<?= $_SESSION["numberOfPeople"] ?>" placeholder="Aantal personen/fietsen " required>
+        </label>
+        <label  class="field">
+            <header><h3>Datum vanaf</h3></header>
+            <input type="date" name="dateFrom" value="<?= $_SESSION["dates"]["dateFrom"] ?>" required>
+        </label>
+        <label  class="field">
+            <header><h3>Datum tot</h3></header>
+            <input type="date" name="dateTo" value="<?= $_SESSION["dates"]["dateTo"] ?>" required>
+        </label>
+    <?php endif ?>
+
+    <?php if($datesAndPeopleBool) : ?>
+        <label  class="field">
+            <header><h3>Opmerking</h3></header>
+
+            <textarea name="comment"></textarea>
+        </label>
+        <label class="field">
+            <header><h3>Kinderzitje</h3></header>
+            <input type="number" name="childSeat" min="0" max=<?= $_SESSION["displayCustomer"] ?>> 
+        </label>
+        
+    <?php endif ?>
+        
+    <?php if(!$datesAndPeopleBool && !isset($_SESSION["succes"])) : ?>
+        <input type="submit" value="Volgende">
     <?php else: ?>
-        <label>Klant id</label>
+        <input type="submit" name="createReserve" value="Reserveringen toevoegen">
     <?php endif ?>
-    <input  type="text" name="customerId" value="<?= $_SESSION["displayCustomer"] ?>" placeholder="Klant id">
-
-    <?php if(isset($_POST["customerId"])) : ?>
-        <label>Aantal personen/fietsen</label>
-        <input type="number" name="numberOfPeople" value="<?= $_SESSION["numberOfPeople"] ?>" placeholder="Aantal personen/fietsen ">
-    <?php endif ?>
-    <input type="submit">
 </form> 
-    <?php if(isset($_POST["numberOfPeople"])) : ?>
-        <?= $reserverTable->getTable(); ?>  
-    <?php endif ?>
-    
-<script>
-    var clickCount = 1; 
-    var firstId;  
-    function selectTd(id, date) {
-        x = document.getElementById(id);
-        if(clickCount <= 2)
-        {
-           x.classList.add("dayselected");
-        }
-        if(clickCount > 1 && clickCount <= 3)
-        {
-            for(let i = parseInt(firstId.substr(2)); i < parseInt(id.substr(2)) + 1; i++) 
-            {
-                document.getElementById("td" + i).classList.add("dayselected");
-            }
-        }
-        if(x.classList.contains('dayselected') && clickCount > 2)
-        {
-            x.classList.remove('dayselected');
-        }
-        if(clickCount == 1){
-            firstId = id;
-        }
-        clickCount++;
-        console.log(x.style.backgroundColor);
-    }
-    function WeekBack() {
-        document.cookie = "changeWeek = test";
-    }
-    function WeekFuther() {
-
-    }
-</script>        
- 
+<?php if($datesAndPeopleBool) { echo $reserverTable->getTable(); } ?>

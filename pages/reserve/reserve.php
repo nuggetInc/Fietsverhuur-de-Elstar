@@ -3,18 +3,20 @@
 declare(strict_types=1);
 
 $reserveTabel = new ReserverTable();
-$reserveTabel->setWeekCount(5);
-$reserveTabel->setButtonText("Info");
-$reserveTabel->setStartDate(date("d-m-Y"));
 
+if(isset($_POST["startDate"]))
+{
+    $reserveTabel->setDates(array("dateFrom"=>$_POST["startDate"], "dateTo"=>date("Y-m-d", strtotime($_POST["startDate"] . "+21 days"))));
+}
+$reserveTabel->setWeekCount(4);
 ?>
-<div class="form-wrapper">
-    <form action="" method="post">
-        <header>Zoek</header>
-        <input type="text" name="searchBikeCount" placeholder="Zoek aantal fietsen">
-        <input type="submit" value="Zoek">
-    </form>
-</div>
+
+<form method="POST" action="">
+    <header>Datum</header>
+    <input type="date" name="startDate">
+    <input type="submit">
+</form>
+
 <?= $reserveTabel->getTable(); ?>
 <?php if (isset($_GET["dayInfo"])) : ?>
 
@@ -31,6 +33,7 @@ $reserveTabel->setStartDate(date("d-m-Y"));
         </tr>
         <?php
         $customer = new Customer();
+        $bikeRental = new BikeRental();
         $bikeRental->setStatus(0);
         $bikeRental->setDate(date("Y-m-d", strtotime($_GET["dayInfo"])));
         $getDate = $bikeRental->getDate();
