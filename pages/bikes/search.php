@@ -31,7 +31,10 @@ if (isset($_SESSION["match"]))
 $framenumbers = Bike::getFramenumbersLike($match);
 if (count($framenumbers) > 0)
 {
-    $bike = Bike::getBike($_SESSION["framenumber"] ?? $framenumbers[0]);
+    if (array_search(@$_SESSION["framenumber"], $framenumbers, true) !== false)
+        $bike = Bike::getBike($_SESSION["framenumber"]);
+    else
+        $bike = Bike::getBike($framenumbers[0]);
 }
 
 ?>
