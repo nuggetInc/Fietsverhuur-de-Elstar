@@ -29,7 +29,7 @@ if (isset($_POST["create"]))
                 <?= $_SESSION["framenumber-error"] ?? "" ?>
             </span>
         </header>
-        <input id="framenumber" oninput="validateFramenumber()" type="text" name="framenumber" value="<?= htmlspecialchars($_SESSION["framenumber"] ?? "") ?>" placeholder="Framenumber" autofocus onfocus="this.select()" />
+        <input id="framenumber" oninput="validateFramenumber()" type="text" name="framenumber" value="<?= htmlspecialchars($_SESSION["framenumber"] ?? "") ?>" placeholder="SA1234" autofocus onfocus="this.select()" />
     </label>
 
     <label class="field">

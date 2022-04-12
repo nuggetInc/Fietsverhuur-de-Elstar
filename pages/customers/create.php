@@ -75,7 +75,7 @@ if (isset($_POST["create"]))
                 <?= $_SESSION["salutation-error"] ?? "" ?>
             </span>
         </header>
-        <input id="salutation" type="text" name="salutation" value="<?= htmlspecialchars($_SESSION["salutation"] ?? "") ?>" placeholder="Aanhef" oninput="validateSalutation()" autofocus onfocus="this.select()" />
+        <input id="salutation" type="text" name="salutation" value="<?= htmlspecialchars($_SESSION["salutation"] ?? "") ?>" placeholder="Dhr." oninput="validateSalutation()" autofocus onfocus="this.select()" />
     </label>
 
     <label class="field">
@@ -85,7 +85,7 @@ if (isset($_POST["create"]))
                 <?= $_SESSION["name-error"] ?? "" ?>
             </span>
         </header>
-        <input id="name" type="text" name="name" value="<?= htmlspecialchars($_SESSION["name"] ?? "") ?>" placeholder="Voornaam" oninput="validateName()" onfocus="this.select()" />
+        <input id="name" type="text" name="name" value="<?= htmlspecialchars($_SESSION["name"] ?? "") ?>" placeholder="Jan" oninput="validateName()" onfocus="this.select()" />
     </label>
 
     <label class="field">
@@ -95,14 +95,14 @@ if (isset($_POST["create"]))
                 <?= $_SESSION["surname-error"] ?? "" ?>
             </span>
         </header>
-        <input id="surname" type="text" name="surname" value="<?= htmlspecialchars($_SESSION["surname"] ?? "") ?>" placeholder="Achternaam" oninput="validateSurname()" onfocus="this.select()" />
+        <input id="surname" type="text" name="surname" value="<?= htmlspecialchars($_SESSION["surname"] ?? "") ?>" placeholder="Janssen" oninput="validateSurname()" onfocus="this.select()" />
     </label>
 
     <label class="field">
         <header>
             <h3>E-Mail</h3>
         </header>
-        <input type="email" name="email" value="<?= htmlspecialchars($_SESSION["email"] ?? "") ?>" placeholder="E-Mail" onfocus="this.select()" />
+        <input type="email" name="email" value="<?= htmlspecialchars($_SESSION["email"] ?? "") ?>" placeholder="jan.janssen@gmail.com" onfocus="this.select()" />
     </label>
 
     <label class="field">
@@ -112,7 +112,7 @@ if (isset($_POST["create"]))
                 <?= $_SESSION["phonenumber-error"] ?? "" ?>
             </span>
         </header>
-        <input id="phonenumber" type="text" name="phonenumber" value="<?= htmlspecialchars($_SESSION["phonenumber"] ?? "") ?>" placeholder="Telefoonnummer" oninput="validatePhonenumber()" onfocus="this.select()" />
+        <input id="phonenumber" type="text" name="phonenumber" value="<?= htmlspecialchars($_SESSION["phonenumber"] ?? "") ?>" placeholder="0612345678" oninput="validatePhonenumber()" onfocus="this.select()" />
     </label>
 
     <label class="field">
@@ -122,7 +122,7 @@ if (isset($_POST["create"]))
                 <?= $_SESSION["postalcode-error"] ?? "" ?>
             </span>
         </header>
-        <input id="postalcode" type="text" name="postalcode" value="<?= htmlspecialchars($_SESSION["postalcode"] ?? "") ?>" placeholder="Postcode" oninput="validatePostalcode()" onfocus="this.select()" />
+        <input id="postalcode" type="text" name="postalcode" value="<?= htmlspecialchars($_SESSION["postalcode"] ?? "") ?>" placeholder="1234AB" oninput="validatePostalcode()" onfocus="this.select()" />
     </label>
 
     <input type="submit" name="create" value="Creëer" />

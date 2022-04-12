@@ -48,7 +48,7 @@ if (count($framenumbers) > 0)
                 <span class="error">Geen fietsen gevonden</span>
             <?php endif ?>
         </header>
-        <input type="text" name="match" value="<?= htmlspecialchars($_SESSION["match"] ?? "") ?>" placeholder="Zoeken" autofocus onfocus="this.select()" />
+        <input type="text" name="match" value="<?= htmlspecialchars($_SESSION["match"] ?? "") ?>" placeholder="SA1234" autofocus onfocus="this.select()" />
     </label>
 
     <?php if (count($framenumbers) > 0) : ?>

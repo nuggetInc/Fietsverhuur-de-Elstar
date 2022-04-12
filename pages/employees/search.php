@@ -50,7 +50,7 @@ if (count($employees) > 0)
                 <span class="error">Geen werknemers gevonden</span>
             <?php endif ?>
         </header>
-        <input type="text" name="match" value="<?= htmlspecialchars($_SESSION["match"] ?? "") ?>" placeholder="Zoeken" autofocus onfocus="this.select()" />
+        <input type="text" name="match" value="<?= htmlspecialchars($_SESSION["match"] ?? "") ?>" placeholder="Gebruikersnaam" autofocus onfocus="this.select()" />
     </label>
 
     <?php if (count($employees) > 0) : ?>

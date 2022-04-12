@@ -44,7 +44,7 @@ if (count($employees) > 0)
         <header>
             <h3>Zoeken</h3>
         </header>
-        <input type="text" name="match" value="<?= htmlspecialchars($_SESSION["match"] ?? "") ?>" placeholder="Zoeken" autofocus onfocus="this.select()" />
+        <input type="text" name="match" value="<?= htmlspecialchars($_SESSION["match"] ?? "") ?>" placeholder="Gebruikersnaam" autofocus onfocus="this.select()" />
     </label>
 
     <?php if (count($employees) > 0) : ?>
