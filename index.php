@@ -19,11 +19,12 @@ const ROOT = "/Fietsverhuur-de-Elstar/";
 <html>
 
 <head>
-    <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/form.css">
-    <link rel="stylesheet" href="./css/header.css">
-    <link rel="stylesheet" href="./css/reserve.css">
-    <link rel="stylesheet" href="./css/table.css">
+    <!-- DON'T REMOVE ROOT! it stops working on some pages for no reason -->
+    <link rel="stylesheet" href="<?= ROOT ?>css/style.css">
+    <link rel="stylesheet" href="<?= ROOT ?>css/form.css">
+    <link rel="stylesheet" href="<?= ROOT ?>css/header.css">
+    <link rel="stylesheet" href="<?= ROOT ?>css/reserve.css">
+    <link rel="stylesheet" href="<?= ROOT ?>css/table.css">
     <title>Fietsverhuur</title>
 </head>
 
