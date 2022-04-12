@@ -35,11 +35,7 @@ const ROOT = "/Fietsverhuur-de-Elstar/";
 
     ?>
     <?php if (isset($_SESSION["user"])) : ?>
-        <?php
-
-        $children = Page::getRootChildren();
-
-        ?>
+        <?php $children = Page::getRootChildren(); ?>
         <header id="header">
             <?php require("header.php"); ?>
         </header>
