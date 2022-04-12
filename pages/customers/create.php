@@ -155,7 +155,7 @@ if (isset($_POST["create"]))
 
     function validateSalutation() {
         if (salutationInput.value === "") {
-            salutationError.innerHTML = "Salutation kan niet leeg zijn";
+            salutationError.innerHTML = "Aanhef kan niet leeg zijn";
         } else {
             salutationError.innerHTML = "";
         }
@@ -163,7 +163,7 @@ if (isset($_POST["create"]))
 
     function validateName() {
         if (nameInput.value === "") {
-            nameError.innerHTML = "Name kan niet leeg zijn";
+            nameError.innerHTML = "Naam kan niet leeg zijn";
         } else {
             nameError.innerHTML = "";
         }
@@ -171,7 +171,7 @@ if (isset($_POST["create"]))
 
     function validateSurname() {
         if (surnameInput.value === "") {
-            surnameError.innerHTML = "Surname kan niet leeg zijn";
+            surnameError.innerHTML = "Achternaam kan niet leeg zijn";
         } else {
             surnameError.innerHTML = "";
         }
@@ -179,7 +179,7 @@ if (isset($_POST["create"]))
 
     function validatePhonenumber() {
         if (phonenumberInput.value === "") {
-            phonenumberError.innerHTML = "Phonenumber kan niet leeg zijn";
+            phonenumberError.innerHTML = "Telefoonnummer kan niet leeg zijn";
         } else {
             phonenumberError.innerHTML = "";
         }
@@ -187,7 +187,7 @@ if (isset($_POST["create"]))
 
     function validatePostalcode() {
         if (postalcodeInput.value === "") {
-            postalcodeError.innerHTML = "Postalcode kan niet leeg zijn";
+            postalcodeError.innerHTML = "Postcode kan niet leeg zijn";
         } else {
             postalcodeError.innerHTML = "";
         }
