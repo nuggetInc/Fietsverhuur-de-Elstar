@@ -98,6 +98,13 @@ class Employee
         $sth = Database::getPDO()->prepare("UPDATE `employee` SET `permission` = :permission WHERE `name` = :name;");
         $sth->execute($params);
     }
+
+    public static function delete(string $name)
+    {
+        $params = array(":name" => $name);
+        $sth = Database::getPDO()->prepare("DELETE FROM `employee` WHERE `name` = :name;");
+        $sth->execute($params);
+    }
 }
 
 enum Permission: string
