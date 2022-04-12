@@ -1,5 +1,7 @@
 <?php
 
+const ROOT = "/Fietsverhuur-de-Elstar/";
+
 $current = $children[0];
 for ($i = 0; $i < count($children); $i++)
 {

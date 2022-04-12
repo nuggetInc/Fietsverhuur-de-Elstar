@@ -12,18 +12,16 @@ require_once("classes/ReserveTable.php");
 
 session_start();
 
-const ROOT = "/Fietsverhuur-de-Elstar/";
-
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <link rel="stylesheet" href="<?= ROOT ?>css/style.css">
-    <link rel="stylesheet" href="<?= ROOT ?>css/form.css">
-    <link rel="stylesheet" href="<?= ROOT ?>css/header.css">
-    <link rel="stylesheet" href="<?= ROOT ?>css/reserve.css">
-    <link rel="stylesheet" href="<?= ROOT ?>css/table.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/form.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/reserve.css">
+    <link rel="stylesheet" href="./css/table.css">
     <title>Fietsverhuur</title>
 </head>
 
