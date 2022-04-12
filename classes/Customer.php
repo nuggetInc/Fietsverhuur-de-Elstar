@@ -113,4 +113,11 @@ class Customer
         $sth = Database::getPDO()->prepare("INSERT INTO `customer` (`salutation`, `name`, `surname`, `email`, `phonenumber`, `postalcode`) VALUES (:salutation, :name, :surname, :email, :phonenumber, :postalcode);");
         $sth->execute($params);
     }
+
+    public static function delete(int $id)
+    {
+        $params = array(":id" => $id);
+        $sth = Database::getPDO()->prepare("DELETE FROM `customer` WHERE `id` = :id;");
+        $sth->execute($params);
+    }
 }
