@@ -44,7 +44,7 @@ if (count($customers) > 0)
         <header>
             <h3>Zoeken</h3>
         </header>
-        <input type="text" name="match" value="<?= htmlspecialchars($_SESSION["match"] ?? "") ?>" placeholder="Zoeken" autofocus onfocus="this.select()" />
+        <input type="text" name="match" value="<?= htmlspecialchars($_SESSION["match"] ?? "") ?>" placeholder="1234AB" autofocus onfocus="this.select()" />
     </label>
 
     <?php if (count($customers) > 0) : ?>
