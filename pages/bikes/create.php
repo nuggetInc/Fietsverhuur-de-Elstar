@@ -20,7 +20,7 @@ if (isset($_POST["create"]))
 
 ?>
 <form method="POST" onsubmit="return validateCreateForm()">
-    <header>Creëer</header>
+    <header>Registreren</header>
 
     <label class="field">
         <header>
