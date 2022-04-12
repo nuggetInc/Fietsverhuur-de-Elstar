@@ -12,17 +12,15 @@ if (isset($_POST["create"]))
         exit;
     }
 
-    $_SESSION["framenumber"] = $_POST["framenumber"];
-
     Bike::create($_POST["framenumber"], $_POST["comment"]);
 
-    header("Location: $uri/../search");
+    header("Location: $uri");
     exit;
 }
 
 ?>
 <form method="POST" onsubmit="return validateCreateForm()">
-    <header>Creëer</header>
+    <header>Registreren</header>
 
     <label class="field">
         <header>
@@ -31,7 +29,7 @@ if (isset($_POST["create"]))
                 <?= $_SESSION["framenumber-error"] ?? "" ?>
             </span>
         </header>
-        <input id="framenumber" oninput="validateFramenumber()" type="text" name="framenumber" value="<?= htmlspecialchars($_SESSION["framenumber"] ?? "") ?>" placeholder="Framenumber" autofocus onfocus="this.select()" />
+        <input id="framenumber" oninput="validateFramenumber()" type="text" name="framenumber" value="<?= htmlspecialchars($_SESSION["framenumber"] ?? "") ?>" placeholder="SA1234" autofocus onfocus="this.select()" />
     </label>
 
     <label class="field">

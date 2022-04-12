@@ -52,7 +52,7 @@ if (count($customers) > 0)
         <header>
             <h3>Zoeken</h3>
         </header>
-        <input type="text" name="match" value="<?= htmlspecialchars($_SESSION["match"] ?? "") ?>" placeholder="Zoeken" autofocus onfocus="this.select()" />
+        <input type="text" name="match" value="<?= htmlspecialchars($_SESSION["match"] ?? "") ?>" placeholder="1234AB" autofocus onfocus="this.select()" />
     </label>
 
     <?php if (count($customers) > 0) : ?>
@@ -84,52 +84,58 @@ if (count($customers) > 0)
 
         <label class="field">
             <header>
-                <h3>Salutation</h3>
+                <h3>Aanhef</h3>
             </header>
-            <input type="text" name="salutation" value="<?= htmlspecialchars($customer->getSalutation()) ?>" />
+            <input type="text" name="salutation" value="<?= htmlspecialchars($customer->getSalutation()) ?>" placeholder="Aanhef" />
         </label>
 
         <label class="field">
             <header>
                 <h3>Voornaam</h3>
             </header>
-            <input type="text" name="name" value="<?= htmlspecialchars($customer->getName()) ?>" />
+            <input type="text" name="name" value="<?= htmlspecialchars($customer->getName()) ?>" placeholder="Voornaam" />
         </label>
 
         <label class="field">
             <header>
                 <h3>Achternaam</h3>
             </header>
-            <input type="text" name="surname" value="<?= htmlspecialchars($customer->getSurname()) ?>" />
+            <input type="text" name="surname" value="<?= htmlspecialchars($customer->getSurname()) ?>" placeholder="Achternaam" />
         </label>
 
         <label class="field">
             <header>
                 <h3>E-Mail</h3>
             </header>
-            <input type="text" name="email" value="<?= htmlspecialchars($customer->getEmail()) ?>" />
+            <input type="email" name="email" value="<?= htmlspecialchars($customer->getEmail()) ?>" placeholder="E-Mail" />
         </label>
 
         <label class="field">
             <header>
                 <h3>Telefoonnummer</h3>
             </header>
-            <input type="text" name="phonenumber" value="<?= htmlspecialchars($customer->getPhonenumber()) ?>" />
+            <input type="text" name="phonenumber" value="<?= htmlspecialchars($customer->getPhonenumber()) ?>" placeholder="Telefoonnummer" />
         </label>
 
         <label class="field">
             <header>
                 <h3>Postcode</h3>
             </header>
-            <input type="text" name="postalcode" value="<?= htmlspecialchars($customer->getPostalcode()) ?>" />
+            <input type="text" name="postalcode" value="<?= htmlspecialchars($customer->getPostalcode()) ?>" placeholder="Postcode" />
         </label>
 
-        <input type="submit" name="update" value="Aanpassen" />
+        <input type="submit" name="c" value="Aanpassen" />
     </form>
 <?php endif ?>
 <?php
 
 unset($_SESSION["match"]);
 unset($_SESSION["customer-id"]);
+unset($_SESSION["salutation"]);
+unset($_SESSION["name"]);
+unset($_SESSION["surname"]);
+unset($_SESSION["email"]);
+unset($_SESSION["phonenumber"]);
+unset($_SESSION["postalcode"]);
 
 ?>

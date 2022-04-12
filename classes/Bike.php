@@ -102,8 +102,14 @@ class Bike
     public static function create(string $framenumber, string $comment)
     {
         $params = array(":framenumber" => $framenumber, "comment" => $comment);
-        $sth = Database::getPDO()->prepare("UPDATE `bike` SET `comment` = :comment WHERE `framenumber` = :framenumber;");
         $sth = Database::getPDO()->prepare("INSERT INTO `bike` (`framenumber`, `comment`) VALUES (:framenumber, :comment);");
+        $sth->execute($params);
+    }
+
+    public static function delete(string $framenumber)
+    {
+        $params = array(":framenumber" => $framenumber);
+        $sth = Database::getPDO()->prepare("DELETE FROM `bike` WHERE `framenumber` = :framenumber;");
         $sth->execute($params);
     }
 }

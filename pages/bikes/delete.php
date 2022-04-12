@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-if (isset($_POST["update"]))
+if (isset($_POST["delete"]))
 {
     $_SESSION["match"] = $_POST["match"];
     $_SESSION["framenumber"] = $_POST["framenumber"];
-
-    Bike::update($_POST["framenumber"], $_POST["comment"]);
+    Bike::delete($_POST["framenumber"]);
 
     header("Location: $uri");
     exit;
@@ -39,7 +38,7 @@ if (count($framenumbers) > 0)
 
 ?>
 <form method="POST" onchange="this.submit()">
-    <header>Zoeken</header>
+    <header>Verwijderen</header>
 
     <label class="field">
         <header>
@@ -75,18 +74,10 @@ if (count($framenumbers) > 0)
 </form>
 <?php if (isset($bike)) : ?>
     <form method="POST">
-        <header>Aanpassen</header>
-
         <input type="hidden" name="match" value="<?= htmlspecialchars($_SESSION["match"] ?? "") ?>" />
         <input type="hidden" name="framenumber" value="<?= htmlspecialchars($bike->getFramenumber()) ?>" />
-        <label class="field">
-            <header>
-                <h3>Opmerking</h3>
-            </header>
-            <textarea name="comment"><?= $bike->getComment() ?></textarea>
-        </label>
 
-        <input type="submit" name="update" value="Aanpassen" />
+        <input type="submit" name="delete" value="Verwijderen" />
     </form>
 <?php endif ?>
 <?php
