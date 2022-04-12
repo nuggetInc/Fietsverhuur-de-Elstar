@@ -102,14 +102,14 @@ class Customer
 
     public static function update(int $id, string $salutation, string $name, string $surname, string $email, string $phonenumber, string $postalcode)
     {
-        $params = array(":id" => $id, "salutation" => $salutation, "name" => $name, "surname" => $surname, "email" => $email, "phonenumber" => $phonenumber, "postalcode" => $postalcode);
-        $sth = Database::getPDO()->prepare("UPDATE `customer` SET `salutation` = :salutation, `name` = :name, `surname` = :surname, `email` = :email, `phonenumber` = :phonenumber, `postalcode` = :postalcode  WHERE `id` = :id;");
+        $params = array(":id" => $id, ":salutation" => $salutation, ":name" => $name, ":surname" => $surname, ":email" => $email, ":phonenumber" => $phonenumber, ":postalcode" => $postalcode);
+        $sth = Database::getPDO()->prepare("UPDATE `customer` SET `salutation` = :salutation, `name` = :name, `surname` = :surname, `email` = :email, `phonenumber` = :phonenumber, `postalcode` = :postalcode WHERE `id` = :id;");
         $sth->execute($params);
     }
 
     public static function create(string $salutation, string $name, string $surname, string $email, string $phonenumber, string $postalcode)
     {
-        $params = array("salutation" => $salutation, "name" => $name, "surname" => $surname, "email" => $email, "phonenumber" => $phonenumber, "postalcode" => $postalcode);
+        $params = array("salutation" => $salutation, ":name" => $name, ":surname" => $surname, ":email" => $email, ":phonenumber" => $phonenumber, ":postalcode" => $postalcode);
         $sth = Database::getPDO()->prepare("INSERT INTO `customer` (`salutation`, `name`, `surname`, `email`, `phonenumber`, `postalcode`) VALUES (:salutation, :name, :surname, :email, :phonenumber, :postalcode);");
         $sth->execute($params);
     }

@@ -27,6 +27,11 @@ class Employee
         return $this->hash;
     }
 
+    public function getPermission(): Permission
+    {
+        return $this->permission;
+    }
+
     /** Check if a user exist */
     public static function exists(string $name): bool
     {
@@ -69,7 +74,7 @@ class Employee
             $name = $row["name"];
             $hash = $row["hash"];
             $permission = Permission::from($row["permission"]);
-            $employees[] = new Employee($name, $hash, $permission);
+            $employees[$row["name"]] = new Employee($name, $hash, $permission);
         }
 
         return $employees;
@@ -85,6 +90,13 @@ class Employee
         $sth->execute($params);
 
         return new Employee($name, $hash, $permission);
+    }
+
+    public static function update(string $name, Permission $permission)
+    {
+        $params = array(":name" => $name, ":permission" => $permission->value);
+        $sth = Database::getPDO()->prepare("UPDATE `employee` SET `permission` = :permission WHERE `name` = :name;");
+        $sth->execute($params);
     }
 }
 
