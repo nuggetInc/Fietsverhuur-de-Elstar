@@ -12,6 +12,8 @@ require_once("classes/ReserveTable.php");
 
 session_start();
 
+const ROOT = "/Fietsverhuur-de-Elstar/";
+
 ?>
 <!DOCTYPE html>
 <html>
