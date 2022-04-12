@@ -12,39 +12,32 @@ class BikeRental
     private int $customerId;
     private int $childSeat;
     private string $comment;
-    private string $dateNow;
     private static string $queryString = "AND status = ";
     private string $status;
     
-    public function __construct()
+    public function __construct(int $numberOfPeople, int $customerId, string $dateFrom, string $dateTo, int $childSeat, string $comment)
     {
-        $this->status = BikeRental::$queryString . 1; 
+        $this->dateFrom = $dateFrom;
+        $this->dateTo = $dateTo;
+        $this->numberOfPeople = $numberOfPeople;
+        $this->customerId = $customerId;
+        $this->childSeat = $childSeat;
+        $this->comment = $comment;
+
+        $this->status = BikeRental::$queryString . 1;
     }
-    
-    public function setDates(array $value) : void
+    /**
+     * Gets bikerental in between dates.
+     */
+    public static function getBikeRentals(array $dates) : array
     {
-        $this->dateFrom = $value["dateFrom"];
-        $this->dateTo = $value["dateTo"];
-    }
-    public function setNumberOfPeople($value) : void
-    {
-        $this->numberOfPeople = intval($value);
-    }
-    public function setCustomerId($value) : void
-    {
-        $this->customerId = intval($value);
-    }
-    public function setChildSeat($value) : void
-    {
-        $this->childSeat = $value;
-    }
-    public function setComment($value) : void
-    {
-        $this->comment = $value;
-    }
-    public function setDate($value) : void
-    {
-        $this->dateNow = $value;
+        $params = array(":dateFrom"=>$dates["dateFrom"], ":dateTo"=>$dates["dateTo"]);
+        $sth = Database::getPDO()->prepare("SELECT * FROM bike_rental WHERE date_from >= :dateFrom AND date_to <= :dateTo");
+        $sth->execute($params);
+
+        if($row = $sth->fetchAll())
+            return $row;
+        return null;
     }
     /** 
      * enter a number referring to the status:
@@ -57,27 +50,33 @@ class BikeRental
         $this->status = ($value == 0) ? "" : BikeRental::$queryString . $value;
     }
 
-    public function getDate() : array
-    {
-        $params = array(':dateNow'=>$this->dateNow, ':status'=>$this->status);
-        $sth = Database::getPDO()->prepare("SELECT * FROM bike_rental WHERE date_from <= :dateNow AND date_to >= :dateNow :status ORDER BY customer_id ASC");
-        $sth->execute($params);
-        return $sth->fetchAll();
-    }
+    // public function getDate() : array
+    // {
+    //     $params = array(':dateNow'=>$this->dateNow, ':status'=>$this->status);
+    //     $sth = Database::getPDO()->prepare("SELECT * FROM bike_rental WHERE date_from <= :dateNow AND date_to >= :dateNow :status ORDER BY customer_id ASC");
+    //     $sth->execute($params);
+    //     return $sth->fetchAll();
+    // }
     /** 
      * Adds to BikeRental table.
      * Param = $_SESSION["user"]
     */
-    public function addReserve($user)
+    public static function addBikeRental(int $numberOfPeople, int $customerId, string $dateFrom, string $dateTo, int $childSeat, string $comment)
     {
-        $params = array(':date_from'=>$this->dateFrom, ':date_to'=>$this->dateTo, 
-        ':employee_name'=>$user, 'customer_id'=>$this->customerId, ':framenumber'=>"", 
-        ':child_seat'=>$this->childSeat, ':comment'=>$this->comment);
-        $sth = Database::getPDO()->prepare("INSERT INTO bike_rental (employee_name, customer_id, framenumber, date_from, date_to, child_seat, status, comment)
-        VALUES (:employee_name, :customer_id, :framenumber, :date_from, :date_to, :child_seat, 'reserved', :comment)");
-        for($i = 0; $i < $this->numberOfPeople; $i++)
+        $childSeat = $childSeat;
+        for($i = 0; $i < $numberOfPeople; $i++)
         {
+            $childSeat = ($childSeat != 0) ? $childSeat / $childSeat : 0;
+
+            $params = array(':date_from'=>$dateFrom, ':date_to'=>$dateTo, 
+            ':employee_name'=>$_SESSION["user"]->getName(), 'customer_id'=>$customerId, ':framenumber'=>"", 
+            ':child_seat'=>$childSeat, 
+            ':comment'=>$comment);
+            $sth = Database::getPDO()->prepare("INSERT INTO bike_rental (employee_name, customer_id, framenumber, date_from, date_to, child_seat, status, comment)
+            VALUES (:employee_name, :customer_id, :framenumber, :date_from, :date_to, :child_seat, 'reserved', :comment)");
             $sth->execute($params);
+
+            $childSeat--;
         }
     }
 }
