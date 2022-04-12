@@ -102,7 +102,7 @@ if (isset($_POST["create"]))
         <header>
             <h3>E-Mail</h3>
         </header>
-        <input type="email" name="email" value="<?= htmlspecialchars($_SESSION["email"] ?? "") ?>" placeholder="jan.janssen@gmail.com" onfocus="this.select()" />
+        <input type="email" name="email" value="<?= htmlspecialchars($_SESSION["email"] ?? "") ?>" placeholder="jan.janssen@deelstar.nl" onfocus="this.select()" />
     </label>
 
     <label class="field">
