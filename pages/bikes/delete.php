@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 if (isset($_POST["delete"]))
 {
+    $_SESSION["match"] = $_POST["match"];
+    $_SESSION["framenumber"] = $_POST["framenumber"];
     Bike::delete($_POST["framenumber"]);
 
     header("Location: $uri");
@@ -36,7 +38,7 @@ if (count($framenumbers) > 0)
 
 ?>
 <form method="POST" onchange="this.submit()">
-    <header>Zoeken</header>
+    <header>Verwijderen</header>
 
     <label class="field">
         <header>
