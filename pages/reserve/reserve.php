@@ -1,66 +1,37 @@
 <?php
-
 declare(strict_types=1);
 
-$reserveTabel = new ReserverTable();
-
-if(isset($_POST["startDate"]))
-{
-    $reserveTabel->setDates(array("dateFrom"=>$_POST["startDate"], "dateTo"=>date("Y-m-d", strtotime($_POST["startDate"] . "+21 days"))));
-}
-$reserveTabel->setWeekCount(4);
 ?>
 
-<form method="POST" action="">
-    <header>Datum</header>
-    <input type="date" name="startDate">
-    <input type="submit">
-</form>
-
-<?= $reserveTabel->getTable(); ?>
-<?php if (isset($_GET["dayInfo"])) : ?>
-
-    <table>
+<table>
+    <thead>
         <tr>
-            <th>Medewerker</th>
-            <th>Klant</th>
-            <th>Fiets</th>
-            <th>Datum vanaf</th>
-            <th>Datum Tot</th>
-            <th>Kinderzitje</th>
-            <th>Status</th>
-            <th>Opmerking</th>
+            <th>Maandag</th>
+            <th>Dinsdag</th>
+            <th>Woensdag</th>
+            <th>Donderdag</th>
+            <th>Vrijdag</th>
+            <th>Zaterdag</th>
+            <th>Zondag</th>
         </tr>
-        <?php
-        
-        $bikeRental = new BikeRental();
-        $bikeRental->setStatus(0);
-        $bikeRental->setDate(date("Y-m-d", strtotime($_GET["dayInfo"])));
-        $getDate = $bikeRental->getDate();
+    </thead>
+<?php 
 
-        for ($i = 0; $i < count($getDate); $i++)
-        {
-            echo "<tr>";
-            for ($j = 1; $j < (count($getDate[$i]) / 2); $j++)
-            {
-                
-                $displayText = $getDate[$i][$j];
-                switch ($j)
-                {
-                    case 2:
-                        $displayText = Customer::getcustomer($getDate[$i][$j])->getName();
-                        break;
-                    case 6:
-                        $displayText = $displayText == 0 ? "Nee" : "Ja";
-                        break;
-                }
 
-                echo "<td>{$displayText}</td>";
-            }
-            echo "</tr>";
-        }
-        ?>
-    </table>
-    <a href="?page=reserve"><button class="back-button">Terug</button></a>
+$dateNow = (getdate()["wday"] == 0) ? 6 : getdate()["wday"] - 1;
+$date = date('d-m-Y', strtotime("-" . $dateNow . " days"));
 
-<?php endif ?>
+for($i = 0; $i < 10; $i++) 
+{
+    echo"<tr>";
+    for($j = 0; $j < 7; $j++) 
+    {
+        $bikeCount =  BikeRental::getCountByDate($date) . " / " . Bike::getTotalBikeCount();
+        echo"<td>{$date}<br>{$bikeCount}</td>";
+        $date = date('d-m-Y', strtotime($date . "+1 day"));
+    }
+    echo"<tr>";
+}
+
+?>
+</table>

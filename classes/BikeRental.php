@@ -31,14 +31,24 @@ class BikeRental
      */
     public static function getBikeRentals(array $dates) : array
     {
-        $params = array(":dateFrom"=>$dates["dateFrom"], ":dateTo"=>$dates["dateTo"]);
+        $params = array(":dateFrom"=>date("Y-m-d", strtotime($dates["dateFrom"])), ":dateTo"=>date("Y-m-d", strtotime($dates["dateTo"])));
         $sth = Database::getPDO()->prepare("SELECT * FROM bike_rental WHERE date_from >= :dateFrom AND date_to <= :dateTo");
         $sth->execute($params);
 
         if($row = $sth->fetchAll())
             return $row;
-        return null;
+        return array();
     }
+    public static function getCountByDate(string $date) : int
+    {
+        $params = array(":date"=>date("Y-m-d", strtotime($date)));
+        $sth = Database::getPDO()->prepare("SELECT * FROM bike_rental WHERE date_from <= :date AND date_to >= :date");
+        $sth->execute($params);
+
+        return $sth->rowCount();
+
+    }
+
     /** 
      * enter a number referring to the status:
      * 0=Get all
@@ -50,13 +60,6 @@ class BikeRental
         $this->status = ($value == 0) ? "" : BikeRental::$queryString . $value;
     }
 
-    // public function getDate() : array
-    // {
-    //     $params = array(':dateNow'=>$this->dateNow, ':status'=>$this->status);
-    //     $sth = Database::getPDO()->prepare("SELECT * FROM bike_rental WHERE date_from <= :dateNow AND date_to >= :dateNow :status ORDER BY customer_id ASC");
-    //     $sth->execute($params);
-    //     return $sth->fetchAll();
-    // }
     /** 
      * Adds to BikeRental table.
      * Param = $_SESSION["user"]
