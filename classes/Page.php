@@ -57,26 +57,4 @@ class Page
 
         return $children;
     }
-
-    public static function add(string $name, string $parent, string $display, string $order, Permission $permission)
-    {
-        $params = array(":order" => $order);
-        $sth = Database::getPDO()->prepare("UPDATE `page` SET `order` = `order` + 1 WHERE `order` >= :order;");
-        $sth->execute($params);
-
-        $params = array(":name" => $name, ":parent" => $parent, ":display" => $display, ":order" => $order, ":permission" => $permission->value);
-        $sth = Database::getPDO()->prepare("INSERT INTO `page` (`name`, `parent`, `display`, `order`, `permission`) VALUES (:name, :parent, :display, :order, :permission);");
-        $sth->execute($params);
-    }
-
-    public static function remove(string $name)
-    {
-        $params = array(":name" => $name);
-        $sth = Database::getPDO()->prepare("UPDATE `page` SET `order` = `order` - 1 WHERE `order` > (SELECT `order` FROM `page` WHERE `name` = :name);");
-        $sth->execute($params);
-
-        $params = array(":name" => $name);
-        $sth = Database::getPDO()->prepare("DELETE FROM `page`WHERE `name` = :name;");
-        $sth->execute($params);
-    }
 }
