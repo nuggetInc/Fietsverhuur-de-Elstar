@@ -1,19 +1,7 @@
 .form-wrapper {
     margin: 5px;
 }
-table {
-    border: 2px black solid;
-    padding: 5px;
-}
-td, th {
-    padding: 10px;
-    border: 2px black solid; 
-    cursor: pointer;
-}
-.table-text {
-    font-size: 1.3rem;
-    font-weight: bold;
-}
+
 a {
     text-decoration: none;
     color: black;

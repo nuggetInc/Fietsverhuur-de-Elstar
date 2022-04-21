@@ -8,7 +8,6 @@ require_once("classes/Bike.php");
 require_once("classes/BikeRental.php");
 require_once("classes/Page.php");
 require_once("classes/Customer.php");
-require_once("classes/ReserveTable.php");
 
 session_start();
 
